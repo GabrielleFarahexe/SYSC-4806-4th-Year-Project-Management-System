@@ -1,7 +1,7 @@
-package _thYearProjectManagamentSystemGroup22.controller;
+package _thYearProjectManagamentSystemGroup20.controller;
 
-import _thYearProjectManagamentSystemGroup22.model.ProjectTopic;
-import _thYearProjectManagamentSystemGroup22.service.ProjectTopicService;
+import _thYearProjectManagamentSystemGroup20.model.ProjectTopic;
+import _thYearProjectManagamentSystemGroup20.service.ProjectTopicService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

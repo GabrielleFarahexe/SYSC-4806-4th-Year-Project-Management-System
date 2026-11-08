@@ -1,7 +1,7 @@
-package _thYearProjectManagamentSystemGroup22.service;
+package _thYearProjectManagamentSystemGroup20.service;
 
-import _thYearProjectManagamentSystemGroup22.model.ProjectTopic;
-import _thYearProjectManagamentSystemGroup22.repository.ProjectTopicRepository;
+import _thYearProjectManagamentSystemGroup20.model.ProjectTopic;
+import _thYearProjectManagamentSystemGroup20.repository.ProjectTopicRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
