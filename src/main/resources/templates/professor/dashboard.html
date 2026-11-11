@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Professor Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+<nav class="topnav">
+    <strong>4th Year Projects</strong>
+    <a th:href="@{/professor}" class="active">Dashboard</a>
+    <a th:href="@{/professor/projects/new}">Add Project</a>
+</nav>
+
+<main class="container">
+    <h1>Professor Dashboard</h1>
+
+    <p class="alert-success" th:if="${successMessage}" th:text="${successMessage}">Saved.</p>
+
+    <section class="stats">
+        <div class="stat-card">
+            <span class="stat-value" th:text="${totalProjects}">0</span>
+            <span class="stat-label">Total Projects</span>
+            <span class="stat-sub" th:text="${activeProjects} + ' active'">0 active</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value" th:text="${totalApplications}">0</span>
+            <span class="stat-label">Total Applications</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value" th:text="${upcomingPresentations}">0</span>
+            <span class="stat-label">Upcoming Presentations</span>
+        </div>
+    </section>
+
+    <section class="card">
+        <div class="card-header">
+            <h2>Recent Activity</h2>
+            <a th:href="@{/professor/projects/new}" class="button">+ Add Project</a>
+        </div>
+
+        <p th:if="${#lists.isEmpty(recentProjects)}" class="muted">
+            No activity yet. Add your first project to get started.
+        </p>
+
+        <ul class="activity" th:unless="${#lists.isEmpty(recentProjects)}">
+            <li th:each="p : ${recentProjects}">
+                <span>Created project <strong th:text="${p.title}">Title</strong>
+                    (<span th:text="${p.requiredStudents}">2</span> students,
+                    <span th:text="${p.openToAllPrograms} ? 'all programs'
+                          : ${#strings.listJoin(p.programRestrictions.![displayName], ', ')}">all programs</span>)
+                </span>
+                <span class="muted" th:text="${#temporals.format(p.createdAt, 'MMM d, HH:mm')}">Nov 11, 14:00</span>
+            </li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>
