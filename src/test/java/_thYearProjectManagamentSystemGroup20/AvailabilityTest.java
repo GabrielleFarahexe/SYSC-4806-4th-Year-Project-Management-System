@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(classes = Application.class)
 @Transactional
 class AvailabilityTest {
 
@@ -42,6 +42,26 @@ class AvailabilityTest {
 	void setUp() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
 				.apply(springSecurity()).build();
+	}
+
+	@Test
+	void defaultUserCanOpenAndSaveAvailabilityWithoutStudentOrProfessorRole() throws Exception {
+		mockMvc.perform(get("/availability").with(user("user")))
+				.andExpect(status().isOk());
+
+		mockMvc.perform(post("/availability").with(user("user")).with(csrf())
+				.param("slots", "MONDAY_9"))
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/availability"));
+
+		assertThat(availabilityService.getAvailability("user")).containsExactly("MONDAY_9");
+	}
+
+	@Test
+	void anonymousUserIsRedirectedToLogin() throws Exception {
+		mockMvc.perform(get("/availability").accept(org.springframework.http.MediaType.TEXT_HTML))
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/login"));
 	}
 
 	@Test

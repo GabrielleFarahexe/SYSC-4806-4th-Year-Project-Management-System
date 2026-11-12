@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,7 +14,6 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/availability")
-@PreAuthorize("hasAnyRole('STUDENT', 'PROFESSOR')")
 public class AvailabilityController {
 
     private final AvailabilityService service;
