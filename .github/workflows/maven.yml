@@ -21,15 +21,29 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up JDK 17
+    - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
 
-    - name: Make Maven wrapper execuateble
+    - name: Make Maven wrapper executable
       run: chmod +x mvnw
+
+    - name: Download and verify Maven
+      env:
+        MVNW_VERBOSE: 'true'
+      run: |
+        for attempt in 1 2 3; do
+          if ./mvnw --version; then
+            exit 0
+          fi
+          if [ "$attempt" -lt 3 ]; then
+            sleep 5
+          fi
+        done
+        exit 1
     
     - name: Build and Test
       run: ./mvnw clean verify
