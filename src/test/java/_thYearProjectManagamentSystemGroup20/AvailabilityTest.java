@@ -1,4 +1,4 @@
-package _thYearProjectManagamentSystemGroup22;
+package _thYearProjectManagamentSystemGroup20;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +8,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import _thYearProjectManagamentSystemGroup22.Availability.AvailabilityService;
+import _thYearProjectManagamentSystemGroup20.Availability.AvailabilityService;
 
 import java.util.List;
 import java.time.DayOfWeek;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = Application.class)
+@SpringBootTest
 @Transactional
 class AvailabilityTest {
 
