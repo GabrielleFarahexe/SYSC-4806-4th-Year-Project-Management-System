@@ -13,6 +13,8 @@
 
     <p>Browse project topics available to students.</p>
 
+    <p><a th:href="@{/availability}">Enter presentation availability</a></p>
+
     <div th:if="${#lists.isEmpty(projects)}">
         <p>No project topics are currently available.</p>
     </div>
