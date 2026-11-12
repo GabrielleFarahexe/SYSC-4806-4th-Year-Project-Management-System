@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Projects</title>
+</head>
+
+<body>
+
+    <h1>Available Project Topics</h1>
+
+    <p>Browse project topics available to students.</p>
+
+    <p><a th:href="@{/availability}">Enter presentation availability</a></p>
+
+    <div th:if="${#lists.isEmpty(projects)}">
+        <p>No project topics are currently available.</p>
+    </div>
+
+    <div th:each="project : ${projects}">
+        <h2 th:text="${project.title}">Project Title</h2>
+
+        <p th:text="${project.description}">Project Description</p>
+
+        <p>
+            Eligible Programs:
+            <span th:text="${project.programRestrictions}"></span>
+        </p>
+
+        <p>
+            Student Capacity:
+            <span th:text="${project.requiredStudents}"></span>
+        </p>
+
+        <hr>
+    </div>
+
+</body>
+
+</html>

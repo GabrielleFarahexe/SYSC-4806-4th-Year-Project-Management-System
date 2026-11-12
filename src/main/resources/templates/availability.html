@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Enter Availability</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 5px;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 12px;
+    }
+
+    .slot {
+      cursor: pointer;
+      display: block;
+    }
+
+    .slot input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .slot span {
+      display: block;
+      background: #e9edf2;
+      padding: 14px;
+      border-radius: 6px;
+    }
+
+    .slot input:checked + span {
+      background: #b9e8ce;
+      color: #135a38;
+    }
+
+    .slot input:focus-visible + span {
+      outline: 3px solid #2563eb;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .success {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <h2>Enter Your Availability</h2>
+
+  <p>Select all times when you are available
+    for presentations.</p>
+
+  <p class="success" th:if="${success}"
+     th:text="${success}"></p>
+
+  <form th:action="@{/availability}" method="post">
+
+    <table>
+      <thead>
+      <tr>
+        <th>Time</th>
+        <th th:each="day : ${days}"
+            th:text="${day}">
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="hour : ${hours}">
+        <td th:text="${hour + ':00 - ' +
+                            (hour + 1) + ':00'}">
+        </td>
+
+        <td th:each="day : ${days}">
+          <label class="slot">
+            <input
+                    type="checkbox"
+                    name="slots"
+                    th:value="${day.name() + '_' + hour}"
+                    th:checked="${selectedSlots.contains(
+                                    day.name() + '_' + hour
+                                )}">
+
+            <span>✓</span>
+          </label>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <button type="submit">
+      Save Availability
+    </button>
+  </form>
+</div>
+</body>
+</html>
