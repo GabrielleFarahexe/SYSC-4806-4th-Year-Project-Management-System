@@ -8,7 +8,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import _thYearProjectManagamentSystemGroup20.Availability.AvailabilityService;
+import _thYearProjectManagamentSystemGroup20.service.AvailabilityService;
 
 import java.util.List;
 import java.time.DayOfWeek;

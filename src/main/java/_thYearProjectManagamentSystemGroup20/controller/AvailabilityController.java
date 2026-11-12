@@ -1,5 +1,6 @@
-package _thYearProjectManagamentSystemGroup20.Availability;
+package _thYearProjectManagamentSystemGroup20.controller;
 
+import _thYearProjectManagamentSystemGroup20.service.AvailabilityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,7 @@ public class AvailabilityController {
                 DayOfWeek.TUESDAY,
                 DayOfWeek.WEDNESDAY,
                 DayOfWeek.THURSDAY,
-                DayOfWeek.FRIDAY
-        ));
+                DayOfWeek.FRIDAY));
 
         model.addAttribute("hours",
                 IntStream.range(9, 16).boxed().toList());
@@ -48,8 +48,7 @@ public class AvailabilityController {
 
     @PostMapping
     public String saveAvailability(
-            @RequestParam(name = "slots", required = false)
-            List<String> slots,
+            @RequestParam(name = "slots", required = false) List<String> slots,
             Authentication authentication,
             RedirectAttributes redirectAttributes) {
 
@@ -63,8 +62,7 @@ public class AvailabilityController {
 
         redirectAttributes.addFlashAttribute(
                 "success",
-                "Availability saved successfully!"
-        );
+                "Availability saved successfully!");
 
         return "redirect:/availability";
     }

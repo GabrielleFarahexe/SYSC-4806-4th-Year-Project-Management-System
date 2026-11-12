@@ -1,8 +1,9 @@
-package _thYearProjectManagamentSystemGroup20.Availability;
+package _thYearProjectManagamentSystemGroup20.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import _thYearProjectManagamentSystemGroup20.model.Availability;
+import _thYearProjectManagamentSystemGroup20.repository.AvailabilityRepo;
 import java.time.DayOfWeek;
 import java.util.List;
 

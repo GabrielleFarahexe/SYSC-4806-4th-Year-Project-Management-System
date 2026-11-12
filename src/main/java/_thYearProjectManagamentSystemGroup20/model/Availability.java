@@ -1,4 +1,5 @@
-package _thYearProjectManagamentSystemGroup20.Availability;
+package _thYearProjectManagamentSystemGroup20.model;
+
 import jakarta.persistence.*;
 import java.time.DayOfWeek;
 
@@ -9,24 +10,25 @@ public class Availability {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username",nullable = false)
+    @Column(name = "username", nullable = false)
     private String username;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "day_of_week",nullable = false)
+    @Column(name = "day_of_week", nullable = false)
     private DayOfWeek dayOfWeek;
 
     @Column(name = "start_hour", nullable = false)
     private int startHour;
 
-    protected  Availability(){}
+    protected Availability() {
+    }
 
-    private Availability(String username, DayOfWeek dayOfWeek){
+    private Availability(String username, DayOfWeek dayOfWeek) {
         this.username = username;
         this.dayOfWeek = dayOfWeek;
     }
 
-    public static Availability createAvailability(String username, DayOfWeek dayOfWeek){
+    public static Availability createAvailability(String username, DayOfWeek dayOfWeek) {
         return new Availability(username, dayOfWeek);
     }
 
@@ -40,15 +42,15 @@ public class Availability {
         return startHour;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username;
     }
 
-    public DayOfWeek getDayOfWeek(){
+    public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 }
