@@ -1,6 +1,6 @@
-package _thYearProjectManagamentSystemGroup22.repository;
+package _thYearProjectManagamentSystemGroup20.repository;
 
-import _thYearProjectManagamentSystemGroup22.model.Student;
+import _thYearProjectManagamentSystemGroup20.model.Student;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

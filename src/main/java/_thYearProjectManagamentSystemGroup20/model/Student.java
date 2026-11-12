@@ -1,4 +1,4 @@
-package _thYearProjectManagamentSystemGroup22.model;
+package _thYearProjectManagamentSystemGroup20.model;
 
 import jakarta.persistence.*;
 

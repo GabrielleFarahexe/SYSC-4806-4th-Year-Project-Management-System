@@ -1,4 +1,4 @@
-package _thYearProjectManagamentSystemGroup22;
+package _thYearProjectManagamentSystemGroup20;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

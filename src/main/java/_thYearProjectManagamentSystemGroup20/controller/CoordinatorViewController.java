@@ -1,15 +1,11 @@
-package _thYearProjectManagamentSystemGroup22.controller;
+package _thYearProjectManagamentSystemGroup20.controller;
 
-import _thYearProjectManagamentSystemGroup22.model.Student;
-import _thYearProjectManagamentSystemGroup22.repository.StudentRepository;
+import _thYearProjectManagamentSystemGroup20.model.Student;
+import _thYearProjectManagamentSystemGroup20.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
