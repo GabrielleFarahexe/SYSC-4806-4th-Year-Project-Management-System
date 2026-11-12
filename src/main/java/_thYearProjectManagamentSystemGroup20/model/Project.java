@@ -1,15 +1,25 @@
-package _thYearProjectManagamentSystemGroup22;
+package _thYearProjectManagamentSystemGroup20.model;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.EnumSet;
+import java.util.Set;
+
+import _thYearProjectManagamentSystemGroup20.Program;
+import _thYearProjectManagamentSystemGroup20.ProjectStatus;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
-import java.time.LocalDateTime;
-import java.util.EnumSet;
-import java.util.Set;
 
 /** A 4th year project topic offered by a professor. */
 @Entity

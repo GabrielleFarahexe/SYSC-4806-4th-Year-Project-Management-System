@@ -1,8 +1,11 @@
-package _thYearProjectManagamentSystemGroup22;
+package _thYearProjectManagamentSystemGroup20.repository;
+
+import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import _thYearProjectManagamentSystemGroup20.ProjectStatus;
+import _thYearProjectManagamentSystemGroup20.model.Project;
 
 public interface ProjectRepository extends CrudRepository<Project, Long> {
 

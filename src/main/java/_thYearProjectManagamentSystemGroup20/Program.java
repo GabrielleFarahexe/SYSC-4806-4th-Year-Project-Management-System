@@ -1,4 +1,4 @@
-package _thYearProjectManagamentSystemGroup22;
+package _thYearProjectManagamentSystemGroup20;
 
 /** Programs a project can be restricted to. Extend this list as needed. */
 public enum Program {
