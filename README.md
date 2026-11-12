@@ -94,6 +94,25 @@ Once running, access the application at:
 
 http://localhost:8080
 
+### Development Database
+
+Run the application from the repository root. H2 stores development data in
+`data/projectdb.mv.db`, so saved availability survives application restarts.
+The `data/` directory is excluded from Git. Tests use a separate in-memory database.
+
+To inspect saved rows, open `http://localhost:8080/h2-console` after signing in,
+or configure an IntelliJ H2 data source with the repository root as its working directory:
+
+- JDBC URL: `jdbc:h2:file:./data/projectdb;AUTO_SERVER=TRUE`
+- User: `sa`
+- Password: leave blank
+
+Run `SELECT * FROM AVAILABILITY;` to inspect the selections. For an external
+connection without the same working directory, replace `./data/projectdb` with
+the absolute path to the repository's `data/projectdb`.
+The previous `jdbc:h2:mem:projectdb` URL created a separate database per process;
+its data was temporary and cannot be recovered after the application stops.
+
 ## Development Process
 
 Development will be organized into three two-week sprints.
