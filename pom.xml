@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ca.carleton</groupId>
-	<artifactId>4th-Year-Project-Management-System-Group-22</artifactId>
+	<artifactId>4th-Year-Project-Management-System-Group-20</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>
@@ -91,7 +91,8 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Temporary database for now before Azure (PostgreSQL) -->		<dependency>
+		<!-- Temporary database for now before Azure (PostgreSQL) -->		
+		<dependency>
 		<groupId>com.h2database</groupId>
 		<artifactId>h2</artifactId>
 		<scope>runtime</scope>
