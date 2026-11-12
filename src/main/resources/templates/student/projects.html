@@ -3,37 +3,50 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Available Projects</title>
+    <title>Browse Projects</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 
 <body>
 
-    <h1>Available Project Topics</h1>
+    <header class="navbar">
+        <a class="brand" th:href="@{/student/dashboard}">4th-Year Projects</a>
+        <nav>
+            <a th:href="@{/student/dashboard}">Dashboard</a>
+            <a class="active" th:href="@{/student/projects}">Browse Projects</a>
+        </nav>
+    </header>
 
-    <p>Browse project topics available to students.</p>
+    <main class="container">
+        <h1>Browse Projects</h1>
 
-    <div th:if="${#lists.isEmpty(projects)}">
-        <p>No project topics are currently available.</p>
-    </div>
+        <form class="card filters" method="get" th:action="@{/student/projects}">
+            <input type="search" name="keyword" th:value="${keyword}" placeholder="Search projects">
+            <select name="program">
+                <option value="">All programs</option>
+                <option th:each="prog : ${programs}" th:value="${prog}" th:text="${prog}"
+                    th:selected="${prog == selectedProgram}">Program</option>
+            </select>
+            <button type="submit" class="button">Search</button>
+            <a class="button secondary" th:href="@{/student/projects}">Clear</a>
+        </form>
 
-    <div th:each="project : ${projects}">
-        <h2 th:text="${project.title}">Project Title</h2>
+        <p class="muted" th:if="${#lists.isEmpty(projects)}">No project topics found.</p>
 
-        <p th:text="${project.description}">Project Description</p>
-
-        <p>
-            Eligible Programs:
-            <span th:text="${project.programRestrictions}"></span>
-        </p>
-
-        <p>
-            Student Capacity:
-            <span th:text="${project.requiredStudents}"></span>
-        </p>
-
-        <hr>
-    </div>
+        <div class="project-grid">
+            <div class="card" th:each="project : ${projects}">
+                <div class="card-header">
+                    <h3 th:text="${project.title}">Title</h3>
+                    <span class="badge" th:text="'Team of ' + ${project.requiredStudents}">Team of 4</span>
+                </div>
+                <p th:text="${project.description}">Description</p>
+                <div class="programs">
+                    <span class="tag" th:each="prog : ${#strings.arraySplit(project.programRestrictions, ',')}"
+                        th:text="${#strings.trim(prog)}">Program</span>
+                </div>
+            </div>
+        </div>
+    </main>
 
 </body>
 
