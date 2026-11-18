@@ -4,6 +4,31 @@ A web-based project management platform designed to support the fourth-year engi
 
 The system will provide a centralized platform for students, professors, and project coordinators to manage project topics, student applications, oral presentations, and final report submissions.
 
+## Links
+| ** Live App (Azure)** | 4th-year-project-management-system-fah0egb5fwewbbb6.mexicocentral-01.azurewebsites.net |
+| ** Kanban Board** | https://github.com/users/YOUR-USERNAME/projects/1
+
+## Demo Login
+| Username | Password|
+| 'admin' | 'Group20Demo' |
+
+This account can access all pages:
+- '/student/projects' (Browse project topics)
+- '/professor/dashboard' (Create and manage project topics)
+- '/coodinator/dashboard' (View unassigned students)
+- '/availability' (Submit presentation availability)
+
+## Team Members
+| Name | Github Username|
+|---| |---|
+| Gabrielle Farah - [@GabrielleFarahexe] (https://github.com/GabrielleFarahexe) |
+| Jumana Mahmoud - [JumanaAmrM] (https://github.com/JumanaAmrM) |
+| Matthew Gibeault - [EnderAres183] (https://github.com/EnderAres183) |
+| Aryan Singh - [AryanK-Singh] (https://github.com/AryanK-Singh) |
+| Jordan Grewal - [nagasurya] (https://github.com/nagasurya) | 
+
+## UML Class Diagram
+
 ## Project Overview
 
 The Fourth-Year Project Management System aims to simplify and organize the administration of fourth-year engineering projects.
