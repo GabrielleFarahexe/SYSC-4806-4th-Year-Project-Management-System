@@ -75,8 +75,8 @@ The project is being developed using:
 | H2 | Temporary development database |
 | PostgreSQL | Planned production database |
 | GitHub | Version control and collaboration |
-| GitHub Actions | Planned continuous integration |
-| Microsoft Azure | Planned application hosting |
+| GitHub Actions | Continuous integration |
+| Microsoft Azure | Application hosting |
 
 *The technology stack and deployment configuration are subject to change during development.*
 
