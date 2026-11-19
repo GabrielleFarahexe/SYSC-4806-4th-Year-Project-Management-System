@@ -19,9 +19,11 @@ The system will provide a centralized platform for students, professors, and pro
 
 This account can access all pages:
 - `/student/projects` (Browse project topics)
-- `/professor/dashboard` (Create and manage project topics)
+- `/professor` (Create and manage project topics)
 - `/coordinator/dashboard` (View unassigned students)
 - `/availability` (Submit presentation availability)
+- `/` (Main page explaining the system)
+
 
 ## Team Members
 
