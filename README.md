@@ -35,7 +35,7 @@ This account can access all pages:
 
 ## UML Class Diagram
 
-![UML Class Diagram](docs/uml.png)
+![UML Class Diagram](docs/UML.png)
 
 ## Project Overview
 
