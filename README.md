@@ -9,7 +9,7 @@ The system will provide a centralized platform for students, professors, and pro
 | | |
 |---|---|
 | **Live App (Azure)** | https://4th-year-project-management-system-fah0egb5fwewbbb6.mexicocentral-01.azurewebsites.net |
-| **Kanban Board** | https://github.com/users/YOUR-USERNAME/projects/1 |
+| **Kanban Board** | https://github.com/users/GabrielleFarahexe/projects/1 |
 
 ## Demo Login
 
