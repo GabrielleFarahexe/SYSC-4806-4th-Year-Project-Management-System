@@ -19,11 +19,11 @@ class ApplicationTests {
 	private WebApplicationContext webApplicationContext;
 
 	@Test
-	void homeRedirectsToStudentProjects() throws Exception {
+	void homeRedirectsToStudentDashboard() throws Exception {
 		MockMvcBuilders.webAppContextSetup(webApplicationContext).apply(springSecurity()).build()
 				.perform(get("/").with(user("user")))
 				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/student/projects"));
+				.andExpect(redirectedUrl("/student/dashboard"));
 	}
 
 	@Test

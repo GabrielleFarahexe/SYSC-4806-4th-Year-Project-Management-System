@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a class="brand" th:href="@{/student/dashboard}">4th-Year Projects</a>
+        <nav>
+            <a class="active" th:href="@{/student/dashboard}">Dashboard</a>
+            <a th:href="@{/student/projects}">Browse Projects</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Welcome!</h1>
+        <p class="muted">Here's an overview of this year's project topics.</p>
+
+        <section class="stats">
+            <div class="card stat"><span class="stat-value" th:text="${totalProjects}">0</span>Projects offered</div>
+            <div class="card stat"><span class="stat-value" th:text="${totalPrograms}">0</span>Programs</div>
+            <div class="card stat"><span class="stat-value" th:text="${totalSpots}">0</span>Student spots</div>
+        </section>
+
+        <section class="card status-card">
+            <div>
+                <h2>My project</h2>
+                <p class="muted">You haven't joined a project yet.</p>
+            </div>
+            <a class="button" th:href="@{/student/projects}">Browse projects</a>
+        </section>
+
+        <h2>Featured projects</h2>
+        <div class="project-grid">
+            <div class="card" th:each="project : ${featuredProjects}">
+                <div class="card-header">
+                    <h3 th:text="${project.title}">Title</h3>
+                    <span class="badge" th:text="'Team of ' + ${project.requiredStudents}">Team of 4</span>
+                </div>
+                <p th:text="${project.description}">Description</p>
+                <div class="programs">
+                    <span class="tag" th:each="prog : ${#strings.arraySplit(project.programRestrictions, ',')}"
+                        th:text="${#strings.trim(prog)}">Program</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
