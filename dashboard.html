@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Professor Dashboard')}"></head>
+<body>
+<div class="app">
+    <aside th:replace="~{fragments/layout :: sidebar('professor', 'dashboard')}"></aside>
+
+    <div class="main">
+        <header th:replace="~{fragments/layout :: topbar('professor')}"></header>
+
+        <main class="content">
+            <h1>Welcome, Prof. John Smith</h1>
+
+            <p class="alert-success" th:if="${successMessage}" th:text="${successMessage}">Saved.</p>
+
+            <section class="stats">
+                <div class="stat-card">
+                    <span class="stat-value" th:text="${totalProjects}">5</span>
+                    <span class="stat-label">My Projects</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" th:text="${totalApplications}">12</span>
+                    <span class="stat-label">Total Applications</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" th:text="${upcomingPresentations}">2</span>
+                    <span class="stat-label">Upcoming Presentations</span>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header">
+                    <h2>Recent Activity</h2>
+                    <a th:href="@{/professor/projects/new}" class="button small">+ Add Project</a>
+                </div>
+
+                <p th:if="${#lists.isEmpty(recentProjects)}" class="muted">
+                    No activity yet. Add your first project to get started.
+                </p>
+
+                <ul class="activity" th:unless="${#lists.isEmpty(recentProjects)}">
+                    <li th:each="p : ${recentProjects}">
+                        <span class="activity-icon">
+                            <svg th:replace="~{fragments/layout :: icon('file')}"></svg>
+                        </span>
+                        <span class="activity-text">
+                            New project <strong th:text="${p.title}">AI in Healthcare</strong> added
+                            (<span th:text="${p.requiredStudents}">2</span> students,
+                            <span th:text="${p.openToAllPrograms} ? 'all programs'
+                                  : ${#strings.listJoin(p.programRestrictions.![displayName], ', ')}">all programs</span>)
+                        </span>
+                        <span class="activity-time" th:text="${#temporals.format(p.createdAt, 'MMM d, HH:mm')}">Nov 11, 14:00</span>
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</div>
+</body>
+</html>

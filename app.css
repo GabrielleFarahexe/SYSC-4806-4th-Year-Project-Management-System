@@ -1,0 +1,381 @@
+/* ==========================================================
+   4th Year Project Management System - shared styles
+   Matches docs/mockup.png. Used by every page through
+   templates/fragments/layout.html
+   ========================================================== */
+
+:root {
+    --sidebar: #1e3352;
+    --sidebar-dark: #172a45;
+    --sidebar-active: #2e4d78;
+    --sidebar-text: #d3ddeb;
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --border: #e3e8ef;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-soft: #e8f0fe;
+    --green: #15803d;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --amber: #b45309;
+    --amber-bg: #fef3c7;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+}
+
+a { color: var(--primary); text-decoration: none; }
+
+h1 { font-size: 1.35rem; font-weight: 700; margin: 0 0 20px; }
+h2 { font-size: 1rem; font-weight: 700; margin: 0 0 12px; }
+
+.muted { color: var(--muted); }
+
+.icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ---------- App layout ---------- */
+
+.app { display: flex; min-height: 100vh; }
+
+.sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--sidebar);
+    color: var(--sidebar-text);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 52px;
+    padding: 0 18px;
+    background: var(--sidebar-dark);
+    color: #fff;
+    font-weight: 600;
+}
+
+.sidebar-nav { padding: 12px 0; }
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 18px;
+    color: var(--sidebar-text);
+}
+
+a.nav-link:hover { background: var(--sidebar-active); color: #fff; }
+.nav-link.active { background: var(--sidebar-active); color: #fff; font-weight: 600; }
+span.nav-link { cursor: default; }
+
+.sidebar-footer { margin-top: auto; padding: 12px 0 16px; }
+
+.sidebar-footer button {
+    width: 100%;
+    background: none;
+    border: none;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sidebar-footer button:hover { background: var(--sidebar-active); color: #fff; }
+
+.main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+.topbar {
+    height: 52px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 28px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.topbar .icon { width: 28px; height: 28px; color: var(--primary); stroke-width: 1.6; }
+
+.content { padding: 28px; width: 100%; max-width: 1100px; }
+
+/* ---------- Cards ---------- */
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.card-header h2, .card-header h1 { margin: 0; }
+
+/* ---------- Stat cards ---------- */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 12px;
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.2;
+}
+
+.stat-card.alert .stat-value,
+.stat-card.alert .stat-label { color: var(--red); }
+
+.stat-label { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+
+/* ---------- Activity list ---------- */
+
+.activity { list-style: none; margin: 0; padding: 0; }
+
+.activity li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.activity li:last-child { border-bottom: none; }
+
+.activity-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.activity-icon .icon { width: 16px; height: 16px; }
+.activity-text { flex: 1; }
+.activity-time { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
+
+/* ---------- Quick actions (coordinator) ---------- */
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.quick-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 6px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-weight: 600;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+.quick-action:hover { background: #d6e4fd; }
+
+/* ---------- Buttons ---------- */
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 18px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.button:hover { background: var(--primary-dark); }
+
+.button.secondary { background: #eef1f5; color: var(--text); }
+.button.secondary:hover { background: #e2e7ee; }
+
+.button.soft { background: var(--primary-soft); color: var(--primary); }
+.button.soft:hover { background: #d6e4fd; }
+
+.button.small { padding: 5px 12px; font-size: 0.85rem; }
+.button.block { width: 100%; }
+
+:focus-visible { outline: 3px solid #93b4f5; outline-offset: 2px; }
+
+/* ---------- Tables ---------- */
+
+.table-wrap { overflow-x: auto; }
+
+table.table { width: 100%; border-collapse: collapse; }
+
+.table th,
+.table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.table th { font-size: 0.85rem; font-weight: 600; background: #f8fafc; }
+
+/* ---------- Badges ---------- */
+
+.badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.badge.open, .badge.accepted { background: var(--green-bg); color: var(--green); }
+.badge.full, .badge.rejected { background: var(--red-bg); color: var(--red); }
+.badge.pending { background: var(--amber-bg); color: var(--amber); }
+
+/* ---------- Alerts ---------- */
+
+.alert-success {
+    background: var(--green-bg);
+    color: var(--green);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 0 0 20px;
+}
+
+.alert-error {
+    background: var(--red-bg);
+    color: var(--red);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 16px;
+}
+
+/* ---------- Forms ---------- */
+
+.field { margin-bottom: 16px; }
+
+.field label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}
+
+.field input,
+.field textarea,
+.field select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #cfd6e0;
+    border-radius: 6px;
+    font: inherit;
+    background: var(--surface);
+}
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.field .invalid { border-color: var(--red); }
+.error { color: var(--red); font-size: 0.85rem; margin: 4px 0 0; }
+.hint { color: var(--muted); font-size: 0.8rem; margin: 4px 0 0; }
+
+.actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+
+/* ---------- Availability grid ---------- */
+
+.availability-table th,
+.availability-table td { text-align: center; padding: 10px 8px; }
+
+.availability-table td:first-child { text-align: left; white-space: nowrap; }
+
+.availability-table input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+/* ---------- Login page ---------- */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8eef6;
+    padding: 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 360px;
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 32px 28px;
+    box-shadow: 0 4px 16px rgba(30, 51, 82, 0.12);
+    text-align: center;
+}
+
+.login-card > .icon { width: 44px; height: 44px; color: var(--sidebar); }
+.login-card h1 { font-size: 1.2rem; margin: 10px 0 4px; }
+.login-card form { text-align: left; margin-top: 20px; }
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 800px) {
+    .app { flex-direction: column; }
+    .sidebar { width: 100%; }
+    .content { padding: 20px 16px; }
+    .field-row { grid-template-columns: 1fr; }
+}
