@@ -1,6 +1,8 @@
 package _thYearProjectManagamentSystemGroup20.controller;
 
+import _thYearProjectManagamentSystemGroup20.ProjectStatus;
 import _thYearProjectManagamentSystemGroup20.model.Student;
+import _thYearProjectManagamentSystemGroup20.repository.ProjectRepository;
 import _thYearProjectManagamentSystemGroup20.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,9 @@ public class CoordinatorViewController {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
     @GetMapping("/coordinator/dashboard")
     public String index(Model model) {
         long totalStudents = studentRepository.count();
@@ -23,6 +28,9 @@ public class CoordinatorViewController {
         model.addAttribute("totalStudents", totalStudents);
         model.addAttribute("unassignedCount", unassignedCount);
         model.addAttribute("unassignedStudents", unassignedStudents);
+        model.addAttribute("totalProjects", projectRepository.countByStatusNot(ProjectStatus.DELETED));
+        // TODO: replace with the real count once presentation scheduling exists.
+        model.addAttribute("presentationsScheduled", 0L);
 
         return "coordinator/dashboard";
     }
