@@ -12,7 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    // Demo accounts, one per role. {noop} means the password isn't encrypted (fine for a class demo).
+    // Demo accounts, one per role. {noop} means the password isn't encrypted (fine
+    // for a class demo).
     @Bean
     public UserDetailsService users() {
         UserDetails student = User.withUsername("student")
@@ -31,7 +32,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/css/**").permitAll()
+                        .requestMatchers("/", "/login", "/about", "/css/**").permitAll()
                         .requestMatchers("/student/**").hasRole("STUDENT")
                         .requestMatchers("/professor/**").hasRole("PROFESSOR")
                         .requestMatchers("/coordinator/**").hasRole("COORDINATOR")

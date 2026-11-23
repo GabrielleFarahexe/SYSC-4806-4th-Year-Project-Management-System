@@ -11,8 +11,18 @@ import java.util.stream.Collectors;
 @Controller
 public class HomeController {
 
+    // Logged in -> your dashboard. Not logged in -> login page.
     @GetMapping("/")
-    public String home() {
+    public String home(Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/dashboard";
+        }
+        return "redirect:/login";
+    }
+
+    // Public page explaining the system
+    @GetMapping("/about")
+    public String about() {
         return "index";
     }
 
@@ -24,12 +34,15 @@ public class HomeController {
     // After login, send each user to the dashboard for their role
     @GetMapping("/dashboard")
     public String dashboard(Authentication authentication) {
+        // Only look at roles (ROLE_...). Spring Security also adds other authorities on
+        // login.
         Set<String> roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
+                .filter(authority -> authority.startsWith("ROLE_"))
                 .collect(Collectors.toSet());
 
         if (roles.size() > 1) {
-            return "redirect:/"; // admin has every role, so show the landing page
+            return "redirect:/about"; // admin has every role, so show the about page with links to everything
         }
         if (roles.contains("ROLE_PROFESSOR")) {
             return "redirect:/professor";
