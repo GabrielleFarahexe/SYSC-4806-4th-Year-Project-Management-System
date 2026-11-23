@@ -45,16 +45,9 @@ class AvailabilityTest {
 	}
 
 	@Test
-	void defaultUserCanOpenAndSaveAvailabilityWithoutStudentOrProfessorRole() throws Exception {
+	void userWithoutRoleCannotAccessAvailability() throws Exception {
 		mockMvc.perform(get("/availability").with(user("user")))
-				.andExpect(status().isOk());
-
-		mockMvc.perform(post("/availability").with(user("user")).with(csrf())
-				.param("slots", "MONDAY_9"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/availability"));
-
-		assertThat(availabilityService.getAvailability("user")).containsExactly("MONDAY_9");
+				.andExpect(status().isForbidden());
 	}
 
 	@Test
