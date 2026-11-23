@@ -4,6 +4,41 @@ A web-based project management platform designed to support the fourth-year engi
 
 The system will provide a centralized platform for students, professors, and project coordinators to manage project topics, student applications, oral presentations, and final report submissions.
 
+## Links
+
+| | |
+|---|---|
+| **Live App (Azure)** | https://4th-year-project-management-system-fah0egb5fwewbbb6.mexicocentral-01.azurewebsites.net |
+| **Kanban Board** | https://github.com/users/GabrielleFarahexe/projects/1 |
+
+## Demo Login
+
+| Username | Password |
+|---|---|
+| `admin` | `Group20Demo` |
+
+This account can access all pages:
+- `/student/projects` (Browse project topics)
+- `/professor` (Create and manage project topics)
+- `/coordinator/dashboard` (View unassigned students)
+- `/availability` (Submit presentation availability)
+- `/` (Main page explaining the system)
+
+
+## Team Members
+
+| Name | GitHub Username |
+|---|---|
+| Gabrielle Farah | [@GabrielleFarahexe](https://github.com/GabrielleFarahexe) |
+| Jumana Amr | [@JumanaAmr](https://github.com/JumanaAmr) |
+| Matthew Gibeault | [@EnderAres183](https://github.com/EnderAres183) |
+| Jordan Grewal | [@nagasurya](https://github.com/nagasurya) |
+| Aryan Singh | [@AryanK-Singh](https://github.com/AryanK-Singh) |
+
+## UML Class Diagram
+
+![UML Class Diagram](docs/UML.png)
+
 ## Project Overview
 
 The Fourth-Year Project Management System aims to simplify and organize the administration of fourth-year engineering projects.
@@ -42,8 +77,8 @@ The project is being developed using:
 | H2 | Temporary development database |
 | PostgreSQL | Planned production database |
 | GitHub | Version control and collaboration |
-| GitHub Actions | Planned continuous integration |
-| Microsoft Azure | Planned application hosting |
+| GitHub Actions | Continuous integration |
+| Microsoft Azure | Application hosting |
 
 *The technology stack and deployment configuration are subject to change during development.*
 
