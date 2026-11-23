@@ -14,6 +14,10 @@
         <nav>
             <a th:href="@{/student/dashboard}">Dashboard</a>
             <a class="active" th:href="@{/student/projects}">Browse Projects</a>
+            <a th:href="@{/availability}">Availability</a>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="button secondary">Log out</button>
+            </form>
         </nav>
     </header>
 
@@ -24,8 +28,8 @@
             <input type="search" name="keyword" th:value="${keyword}" placeholder="Search projects">
             <select name="program">
                 <option value="">All programs</option>
-                <option th:each="prog : ${programs}" th:value="${prog}" th:text="${prog}"
-                    th:selected="${prog == selectedProgram}">Program</option>
+                <option th:each="prog : ${programs}" th:value="${prog.name()}" th:text="${prog.displayName}"
+                    th:selected="${prog.name() == selectedProgram}">Program</option>
             </select>
             <button type="submit" class="button">Search</button>
             <a class="button secondary" th:href="@{/student/projects}">Clear</a>
@@ -41,8 +45,9 @@
                 </div>
                 <p th:text="${project.description}">Description</p>
                 <div class="programs">
-                    <span class="tag" th:each="prog : ${#strings.arraySplit(project.programRestrictions, ',')}"
-                        th:text="${#strings.trim(prog)}">Program</span>
+                    <span class="tag" th:if="${project.openToAllPrograms}">All programs</span>
+                    <span class="tag" th:each="prog : ${project.programRestrictions}"
+                        th:text="${prog.displayName}">Program</span>
                 </div>
             </div>
         </div>

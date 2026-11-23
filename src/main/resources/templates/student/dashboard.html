@@ -14,6 +14,10 @@
         <nav>
             <a class="active" th:href="@{/student/dashboard}">Dashboard</a>
             <a th:href="@{/student/projects}">Browse Projects</a>
+            <a th:href="@{/availability}">Availability</a>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="button secondary">Log out</button>
+            </form>
         </nav>
     </header>
 
@@ -44,11 +48,13 @@
                 </div>
                 <p th:text="${project.description}">Description</p>
                 <div class="programs">
-                    <span class="tag" th:each="prog : ${#strings.arraySplit(project.programRestrictions, ',')}"
-                        th:text="${#strings.trim(prog)}">Program</span>
+                    <span class="tag" th:if="${project.openToAllPrograms}">All programs</span>
+                    <span class="tag" th:each="prog : ${project.programRestrictions}"
+                        th:text="${prog.displayName}">Program</span>
                 </div>
             </div>
         </div>
+        <p class="muted" th:if="${#lists.isEmpty(featuredProjects)}">No project topics yet.</p>
     </main>
 
 </body>

@@ -1,7 +1,8 @@
 package _thYearProjectManagamentSystemGroup20.controller;
 
-import _thYearProjectManagamentSystemGroup20.model.ProjectTopic;
-import _thYearProjectManagamentSystemGroup20.service.ProjectTopicService;
+import _thYearProjectManagamentSystemGroup20.model.Program;
+import _thYearProjectManagamentSystemGroup20.model.Project;
+import _thYearProjectManagamentSystemGroup20.service.ProjectService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,24 +14,24 @@ import java.util.List;
 @Controller
 public class StudentProjectController {
 
-    private final ProjectTopicService projectTopicService;
+    private final ProjectService projectService;
 
-    public StudentProjectController(ProjectTopicService projectTopicService) {
-        this.projectTopicService = projectTopicService;
+    public StudentProjectController(ProjectService projectService) {
+        this.projectService = projectService;
     }
 
     @GetMapping("/student/dashboard")
     public String viewDashboard(Model model) {
 
-        List<ProjectTopic> projects = projectTopicService.getActiveProjectTopics();
+        List<Project> projects = projectService.getActiveProjects();
 
         int totalSpots = 0;
-        for (ProjectTopic project : projects) {
+        for (Project project : projects) {
             totalSpots += project.getRequiredStudents();
         }
 
         model.addAttribute("totalProjects", projects.size());
-        model.addAttribute("totalPrograms", projectTopicService.getAllPrograms().size());
+        model.addAttribute("totalPrograms", projectService.getProgramsInUse().size());
         model.addAttribute("totalSpots", totalSpots);
         model.addAttribute("featuredProjects", projects.subList(0, Math.min(3, projects.size())));
 
@@ -42,8 +43,8 @@ public class StudentProjectController {
             @RequestParam(required = false) String program,
             Model model) {
 
-        model.addAttribute("projects", projectTopicService.searchProjectTopics(keyword, program));
-        model.addAttribute("programs", projectTopicService.getAllPrograms());
+        model.addAttribute("projects", projectService.searchProjects(keyword, program));
+        model.addAttribute("programs", Program.values());
         model.addAttribute("keyword", keyword);
         model.addAttribute("selectedProgram", program);
 
