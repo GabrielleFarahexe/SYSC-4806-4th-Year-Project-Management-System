@@ -34,9 +34,9 @@ class CoordinatorViewControllerTest {
 
     @Test
     void dashboardShowsStudentCountsAndQuickActions() throws Exception {
-        studentRepository.save(new Student("101200001", "Jane Doe", "jane@cmail.carleton.ca", true));
-        studentRepository.save(new Student("101200002", "John Doe", "john@cmail.carleton.ca", false));
-        studentRepository.save(new Student("101200003", "Alice Bob", "alice@cmail.carleton.ca", false));
+        studentRepository.save(new Student("101200001", "Jane Doe", "jane@cmail.carleton.ca", "Software Engineering", true));
+        studentRepository.save(new Student("101200002", "John Doe", "john@cmail.carleton.ca", "Computer Systems", false));
+        studentRepository.save(new Student("101200003", "Alice Bob", "alice@cmail.carleton.ca", "Sotware Engineering", false));
 
         mockMvc.perform(get("/coordinator/dashboard"))
                 .andExpect(status().isOk())

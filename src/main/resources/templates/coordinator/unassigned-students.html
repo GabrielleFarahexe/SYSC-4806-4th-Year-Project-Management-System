@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students without a Project</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #eef2f7;
+            color: #1e293b;
+        }
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 220px;
+            background: #0f2942;
+            color: #e2e8f0;
+            padding: 20px 0;
+            flex-shrink: 0;
+        }
+        .sidebar-brand {
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 0 20px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            margin-bottom: 12px;
+        }
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background: rgba(255, 255, 255, 0.14);
+            color: #ffffff;
+        }
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .topbar {
+            background: #e6eef8;
+            padding: 12px 32px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid #dbe4f0;
+        }
+        .coordinator-pill {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1e293b;
+            background: #ffffff;
+            padding: 6px 14px;
+            border-radius: 999px;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+        }
+        .content {
+            padding: 28px 36px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+        }
+        .card h1 {
+            margin: 0 0 20px;
+            font-size: 1.45rem;
+            color: #0f172a;
+        }
+        .alert-banner {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 0.92rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+        }
+        th {
+            background: #f1f5f9;
+            color: #334155;
+            font-weight: 600;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .btn-reminder {
+            background: #e8f0fe;
+            color: #1a56db;
+            border: 1px solid #c3ddfd;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+        .btn-reminder:hover {
+            background: #dbeafe;
+        }
+        .empty-state {
+            text-align: center;
+            color: #64748b;
+            padding: 24px;
+        }
+        @media (max-width: 800px) {
+            .layout { flex-direction: column; }
+            .sidebar { width: 100%; }
+            .content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="sidebar-brand">4th Year Project</div>
+        <a th:href="@{/coordinator/dashboard}">Dashboard</a>
+        <a th:href="@{/student/projects}">Projects</a>
+        <a th:href="@{/coordinator/students/unassigned}" class="active">Students</a>
+        <a th:href="@{/availability}">Presentations</a>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <span class="coordinator-pill">Coordinator</span>
+        </header>
+
+        <main class="content">
+            <section class="card">
+                <h1>Students without a Project</h1>
+
+                <div th:if="${reminderMessage}" class="alert-banner" th:text="${reminderMessage}"></div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="student : ${unassignedStudents}">
+                        <td th:text="${student.name}">Student Name</td>
+                        <td th:text="${student.program ?: 'Software Eng.'}">Software Eng.</td>
+                        <td>4</td>
+                        <td>
+                            <form th:action="@{/coordinator/students/{id}/remind(id=${student.id})}" method="post" style="margin:0;">
+                                <button type="submit" class="btn-reminder">Send Reminder</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(unassignedStudents)}">
+                        <td colspan="4" class="empty-state">All students currently have a project assigned.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</div>
+</body>
+</html>
