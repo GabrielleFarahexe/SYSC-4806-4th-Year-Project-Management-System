@@ -1,11 +1,10 @@
 package _thYearProjectManagamentSystemGroup20.repository;
 
-import java.util.List;
-
+import _thYearProjectManagamentSystemGroup20.model.Project;
+import _thYearProjectManagamentSystemGroup20.model.ProjectStatus;
 import org.springframework.data.repository.CrudRepository;
 
-import _thYearProjectManagamentSystemGroup20.ProjectStatus;
-import _thYearProjectManagamentSystemGroup20.model.Project;
+import java.util.List;
 
 public interface ProjectRepository extends CrudRepository<Project, Long> {
 
@@ -16,4 +15,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 
     /** Newest projects first, for the dashboard's Recent Activity feed. */
     List<Project> findTop5ByStatusNotOrderByCreatedAtDesc(ProjectStatus status);
+
+    /** Active projects in alphabetical order, for the student pages. */
+    List<Project> findByStatusOrderByTitleAsc(ProjectStatus status);
 }

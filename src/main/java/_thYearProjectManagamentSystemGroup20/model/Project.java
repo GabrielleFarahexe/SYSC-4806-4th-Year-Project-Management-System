@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.EnumSet;
 import java.util.Set;
 
-import _thYearProjectManagamentSystemGroup20.Program;
-import _thYearProjectManagamentSystemGroup20.ProjectStatus;
+import _thYearProjectManagamentSystemGroup20.model.Program;
+import _thYearProjectManagamentSystemGroup20.model.ProjectStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -74,28 +74,61 @@ public class Project {
         return programRestrictions == null || programRestrictions.isEmpty();
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getTitle() {
+        return title;
+    }
 
-    public Set<Program> getProgramRestrictions() { return programRestrictions; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<Program> getProgramRestrictions() {
+        return programRestrictions;
+    }
+
     public void setProgramRestrictions(Set<Program> programRestrictions) {
         this.programRestrictions = (programRestrictions == null || programRestrictions.isEmpty())
                 ? EnumSet.noneOf(Program.class)
                 : EnumSet.copyOf(programRestrictions);
     }
 
-    public Integer getRequiredStudents() { return requiredStudents; }
-    public void setRequiredStudents(Integer requiredStudents) { this.requiredStudents = requiredStudents; }
+    public Integer getRequiredStudents() {
+        return requiredStudents;
+    }
 
-    public ProjectStatus getStatus() { return status; }
-    public void setStatus(ProjectStatus status) { this.status = status; }
+    public void setRequiredStudents(Integer requiredStudents) {
+        this.requiredStudents = requiredStudents;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public ProjectStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProjectStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

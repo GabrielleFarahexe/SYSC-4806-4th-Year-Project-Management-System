@@ -1,0 +1,157 @@
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #f5f6f8;
+    color: #1f2430;
+}
+
+a {
+    color: #c8102e;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #fff;
+    border-bottom: 1px solid #e1e4ea;
+}
+
+.brand {
+    font-weight: 700;
+    color: #1f2430;
+    text-decoration: none;
+}
+
+.navbar nav a {
+    margin-left: 1.25rem;
+    color: #5f6675;
+    text-decoration: none;
+}
+
+.navbar nav a.active {
+    color: #c8102e;
+    border-bottom: 2px solid #c8102e;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem;
+}
+
+.muted {
+    color: #5f6675;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #e1e4ea;
+    border-radius: 10px;
+    padding: 1.25rem;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.stat {
+    color: #5f6675;
+}
+
+.stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #c8102e;
+}
+
+.status-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-left: 4px solid #c8102e;
+    margin-bottom: 2rem;
+}
+
+.button {
+    padding: 0.6rem 1.1rem;
+    border: none;
+    border-radius: 8px;
+    background: #c8102e;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button.secondary {
+    background: #eef0f4;
+    color: #1f2430;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.filters input,
+.filters select {
+    padding: 0.55rem;
+    border: 1px solid #e1e4ea;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.filters input {
+    flex: 1 1 250px;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.badge {
+    background: #e3f4e8;
+    color: #1e6b3a;
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.programs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.tag {
+    background: #eef0f4;
+    border-radius: 6px;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.8rem;
+}
