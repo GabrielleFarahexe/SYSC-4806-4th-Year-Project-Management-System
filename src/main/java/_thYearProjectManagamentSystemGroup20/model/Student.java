@@ -16,7 +16,7 @@ public class Student {
 
     public Student() {}
 
-    public Student(Long id, String studentNumber, String name, String email, boolean assigned) {
+    public Student(String studentNumber, String name, String email, boolean assigned) {
         this.studentNumber = studentNumber;
         this.name = name;
         this.email = email;
