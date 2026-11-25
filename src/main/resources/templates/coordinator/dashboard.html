@@ -1,206 +1,87 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coordinator Dashboard</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #f4f6f9;
-            color: #1f2937;
-        }
-        .layout {
-            display: flex;
-            min-height: 100vh;
-        }
-        .sidebar {
-            width: 230px;
-            background: #0f2942;
-            color: #e5e7eb;
-            padding: 20px 0;
-            flex-shrink: 0;
-        }
-        .sidebar-brand {
-            font-weight: 700;
-            font-size: 1.05rem;
-            padding: 0 20px 18px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-            margin-bottom: 12px;
-        }
-        .sidebar a {
-            display: block;
-            padding: 11px 20px;
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-        .sidebar a:hover, .sidebar a.active {
-            background: rgba(255, 255, 255, 0.12);
-            color: #ffffff;
-        }
-        .main-content {
-            flex: 1;
-            padding: 28px 36px;
-        }
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .role-badge {
-            font-size: 0.9rem;
-            color: #4b5563;
-            background: #ffffff;
-            padding: 6px 12px;
-            border-radius: 999px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-        }
-        .metrics {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(150px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        .metric-card {
-            background: #ffffff;
-            border-radius: 10px;
-            padding: 18px;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-        }
-        .metric-card.alert {
-            background: #fef2f2;
-        }
-        .metric-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1d4ed8;
-            margin-bottom: 6px;
-        }
-        .metric-card.alert .metric-value {
-            color: #dc2626;
-        }
-        .metric-label {
-            font-size: 0.9rem;
-            color: #4b5563;
-        }
-        .card {
-            background: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 22px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-        }
-        .card h2, .card h3 {
-            margin-top: 0;
-        }
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(220px, 1fr));
-            gap: 14px;
-        }
-        .action-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 16px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            color: #1e3a8a;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .action-btn:hover {
-            background: #eff6ff;
-            border-color: #93c5fd;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 12px;
-        }
-        th, td {
-            padding: 12px 14px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        th {
-            background: #f8fafc;
-            font-weight: 600;
-        }
-        .btn {
-            padding: 6px 12px;
-            background: #2563eb;
-            color: #ffffff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.875rem;
-        }
-        .btn:hover {
-            background: #1d4ed8;
-        }
-        @media (max-width: 900px) {
-            .metrics { grid-template-columns: repeat(2, 1fr); }
-            .quick-actions { grid-template-columns: 1fr; }
-            .layout { flex-direction: column; }
-            .sidebar { width: 100%; }
-        }
-    </style>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Coordinator Dashboard')}"></head>
 <body>
-<div class="layout">
-    <aside class="sidebar">
-        <div class="sidebar-brand">4th Year Project</div>
-        <a th:href="@{/coordinator/dashboard}" class="active">Dashboard</a>
-        <a th:href="@{/student/projects}">Projects</a>
-        <a href="#unassigned-students">Students</a>
-        <a th:href="@{/availability}">Presentations</a>
-    </aside>
+<div class="app">
+    <aside th:replace="~{fragments/layout :: sidebar('coordinator', 'dashboard')}"></aside>
 
-    <main class="main-content">
-        <div class="topbar">
-            <h1>Coordinator Dashboard</h1>
-            <span class="role-badge">Coordinator</span>
-        </div>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topbar('Coordinator')}"></header>
 
-        <!-- 4 Metric Counters -->
-        <section class="metrics">
-            <div class="metric-card">
-                <div class="metric-value" th:text="${totalStudents}">0</div>
-                <div class="metric-label">Total Students</div>
+        <main class="content">
+            <div class="page-header">
+                <h1>Welcome, <span sec:authentication="name">Coordinator</span></h1>
             </div>
-            <div class="metric-card alert">
-                <div class="metric-value" th:text="${unassignedCount}">0</div>
-                <div class="metric-label">Students without Project</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value" th:text="${totalProjects}">0</div>
-                <div class="metric-label">Projects</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value" th:text="${presentationsScheduled}">0</div>
-                <div class="metric-label">Presentations Scheduled</div>
-            </div>
-        </section>
 
-        <!-- Quick Actions -->
-        <section class="card">
-            <h2>Quick Actions</h2>
-            <div class="quick-actions">
-                <a href="#unassigned-students" class="action-btn">Find Students without Project</a>
-                <a th:href="@{/availability}" class="action-btn">Allocate Presentations</a>
-                <a th:href="@{/coordinator/deadlines}" class="action-btn">Set Report Deadline</a>
-                <a th:href="@{/coordinator/reminders}" class="action-btn">Send Reminder Emails</a>
-            </div>
-        </section>
-    </main>
+            <section class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" th:text="${totalStudents}">0</div>
+                    <div class="stat-label">Total Students</div>
+                </div>
+                <div class="stat-card alert">
+                    <div class="stat-value" th:text="${unassignedCount}">0</div>
+                    <div class="stat-label">Students without Project</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" th:text="${totalProjects} ?: 0">0</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" th:text="${presentationsScheduled} ?: 0">0</div>
+                    <div class="stat-label">Presentations Scheduled</div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header">
+                    <h2>Quick Actions</h2>
+                </div>
+                <div class="quick-actions">
+                    <a href="#unassigned-students" class="action-btn">
+                        <svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/></svg>
+                        Find Students without Project
+                    </a>
+                    <a th:href="@{/availability}" class="action-btn">
+                        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        Allocate Presentations
+                    </a>
+                    <a th:href="@{/coordinator/deadlines}" class="action-btn">
+                        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+                        Set Report Deadline
+                    </a>
+                    <a th:href="@{/coordinator/reminders}" class="action-btn">
+                        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                        Send Reminder Emails
+                    </a>
+                </div>
+            </section>
+
+            <section class="card" id="unassigned-students">
+                <div class="card-header">
+                    <h2>Students without a Project</h2>
+                </div>
+
+                <p class="muted" th:if="${#lists.isEmpty(unassignedStudents)}">Every student has a project.</p>
+
+                <table class="table" th:unless="${#lists.isEmpty(unassignedStudents)}">
+                    <thead>
+                    <tr>
+                        <th>Student Number</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="s : ${unassignedStudents}">
+                        <td th:text="${s.studentNumber}">101200000</td>
+                        <td th:text="${s.name}">Name</td>
+                        <td><a th:href="'mailto:' + ${s.email}" th:text="${s.email}">email</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
 </div>
 </body>
 </html>

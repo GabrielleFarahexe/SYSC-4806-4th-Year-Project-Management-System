@@ -1,62 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Student Dashboard</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-</head>
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Student Dashboard')}"></head>
 <body>
+<div class="app">
+    <aside th:replace="~{fragments/layout :: sidebar('student', 'dashboard')}"></aside>
 
-    <header class="navbar">
-        <a class="brand" th:href="@{/student/dashboard}">4th-Year Projects</a>
-        <nav>
-            <a class="active" th:href="@{/student/dashboard}">Dashboard</a>
-            <a th:href="@{/student/projects}">Browse Projects</a>
-            <a th:href="@{/availability}">Availability</a>
-            <form th:action="@{/logout}" method="post" style="display:inline">
-                <button type="submit" class="button secondary">Log out</button>
-            </form>
-        </nav>
-    </header>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topbar('Student')}"></header>
 
-    <main class="container">
-        <h1>Welcome!</h1>
-        <p class="muted">Here's an overview of this year's project topics.</p>
-
-        <section class="stats">
-            <div class="card stat"><span class="stat-value" th:text="${totalProjects}">0</span>Projects offered</div>
-            <div class="card stat"><span class="stat-value" th:text="${totalPrograms}">0</span>Programs</div>
-            <div class="card stat"><span class="stat-value" th:text="${totalSpots}">0</span>Student spots</div>
-        </section>
-
-        <section class="card status-card">
-            <div>
-                <h2>My project</h2>
-                <p class="muted">You haven't joined a project yet.</p>
+        <main class="content">
+            <div class="page-header">
+                <h1>Welcome, <span sec:authentication="name">Student</span></h1>
             </div>
-            <a class="button" th:href="@{/student/projects}">Browse projects</a>
-        </section>
 
-        <h2>Featured projects</h2>
-        <div class="project-grid">
-            <div class="card" th:each="project : ${featuredProjects}">
+            <section class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" th:text="${totalProjects}">0</div>
+                    <div class="stat-label">Projects offered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" th:text="${totalPrograms}">0</div>
+                    <div class="stat-label">Programs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" th:text="${totalSpots}">0</div>
+                    <div class="stat-label">Student spots</div>
+                </div>
+            </section>
+
+            <section class="card empty-state">
+                <h2>No Project Yet</h2>
+                <p class="muted">You have not been assigned to a project.<br>Browse available projects and apply!</p>
+                <a class="button" th:href="@{/student/projects}">Browse Projects</a>
+            </section>
+
+            <section class="card">
                 <div class="card-header">
-                    <h3 th:text="${project.title}">Title</h3>
-                    <span class="badge" th:text="'Team of ' + ${project.requiredStudents}">Team of 4</span>
+                    <h2>Featured Projects</h2>
+                    <a th:href="@{/student/projects}">View all</a>
                 </div>
-                <p th:text="${project.description}">Description</p>
-                <div class="programs">
-                    <span class="tag" th:if="${project.openToAllPrograms}">All programs</span>
-                    <span class="tag" th:each="prog : ${project.programRestrictions}"
-                        th:text="${prog.displayName}">Program</span>
-                </div>
-            </div>
-        </div>
-        <p class="muted" th:if="${#lists.isEmpty(featuredProjects)}">No project topics yet.</p>
-    </main>
 
+                <p class="muted" th:if="${#lists.isEmpty(featuredProjects)}">No project topics yet.</p>
+
+                <ul class="activity" th:unless="${#lists.isEmpty(featuredProjects)}">
+                    <li th:each="project : ${featuredProjects}">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                        <div class="grow">
+                            <strong th:text="${project.title}">Title</strong>
+                            <div class="tags">
+                                <span class="tag" th:if="${project.openToAllPrograms}">All programs</span>
+                                <span class="tag" th:each="prog : ${project.programRestrictions}"
+                                      th:text="${prog.displayName}">Program</span>
+                            </div>
+                        </div>
+                        <span class="badge" th:text="'Team of ' + ${project.requiredStudents}">Team of 4</span>
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</div>
 </body>
-
 </html>
