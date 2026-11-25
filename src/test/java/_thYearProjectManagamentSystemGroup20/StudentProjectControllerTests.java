@@ -219,15 +219,14 @@ class StudentProjectControllerTests {
     // ====== Security ======
 
     @Test
-    void professorCannotOpenStudentPages() throws Exception {
-        mockMvc.perform(get("/student/dashboard").with(user("prof").roles("PROFESSOR")))
-                .andExpect(status().isForbidden());
+    void professorCannotOpenBrowseProjects() throws Exception {
+        // /student/dashboard access is covered by SecurityAccessTest
         mockMvc.perform(get("/student/projects").with(user("prof").roles("PROFESSOR")))
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    void coordinatorCannotOpenStudentPages() throws Exception {
+    void coordinatorCannotOpenBrowseProjects() throws Exception {
         mockMvc.perform(get("/student/projects").with(user("coord").roles("COORDINATOR")))
                 .andExpect(status().isForbidden());
     }

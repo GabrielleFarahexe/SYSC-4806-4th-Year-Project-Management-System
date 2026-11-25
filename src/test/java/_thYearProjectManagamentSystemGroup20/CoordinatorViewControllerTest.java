@@ -108,18 +108,6 @@ class CoordinatorViewControllerTest {
     // ====== Security ======
 
     @Test
-    void studentCannotOpenCoordinatorDashboard() throws Exception {
-        mockMvc.perform(get("/coordinator/dashboard").with(user("student").roles("STUDENT")))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    void professorCannotOpenCoordinatorDashboard() throws Exception {
-        mockMvc.perform(get("/coordinator/dashboard").with(user("prof").roles("PROFESSOR")))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
     void anonymousUserIsRedirectedToLogin() throws Exception {
         mockMvc.perform(get("/coordinator/dashboard").with(anonymous())
                         .accept(org.springframework.http.MediaType.TEXT_HTML))

@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -18,7 +17,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/** Login and the role-based redirect from /dashboard to each portal. */
+/**
+ * Login and anonymous access to /dashboard. The per-role redirects from
+ * /dashboard are tested in ApplicationTests.
+ */
 @SpringBootTest(classes = Application.class)
 class HomeControllerTest {
 
@@ -30,34 +32,6 @@ class HomeControllerTest {
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
-    }
-
-    @Test
-    void studentIsSentToStudentDashboard() throws Exception {
-        mockMvc.perform(get("/dashboard").with(user("student").roles("STUDENT")))
-                .andExpect(status().isFound())
-                .andExpect(redirectedUrl("/student/dashboard"));
-    }
-
-    @Test
-    void professorIsSentToProfessorDashboard() throws Exception {
-        mockMvc.perform(get("/dashboard").with(user("prof").roles("PROFESSOR")))
-                .andExpect(status().isFound())
-                .andExpect(redirectedUrl("/professor"));
-    }
-
-    @Test
-    void coordinatorIsSentToCoordinatorDashboard() throws Exception {
-        mockMvc.perform(get("/dashboard").with(user("coord").roles("COORDINATOR")))
-                .andExpect(status().isFound())
-                .andExpect(redirectedUrl("/coordinator/dashboard"));
-    }
-
-    @Test
-    void userWithSeveralRolesIsSentToAboutPage() throws Exception {
-        mockMvc.perform(get("/dashboard").with(user("admin").roles("STUDENT", "PROFESSOR", "COORDINATOR")))
-                .andExpect(status().isFound())
-                .andExpect(redirectedUrl("/about"));
     }
 
     @Test
