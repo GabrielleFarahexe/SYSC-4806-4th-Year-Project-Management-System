@@ -11,19 +11,40 @@ The system will provide a centralized platform for students, professors, and pro
 | **Live App (Azure)** | https://4th-year-project-management-system-fah0egb5fwewbbb6.mexicocentral-01.azurewebsites.net |
 | **Kanban Board** | https://github.com/users/GabrielleFarahexe/projects/1 |
 
-## Demo Login
+## Demo Logins
+| Username | Password | Role | Lands on |
+|---|---|---|---|
+| student | student123 | Student | /student/dashboard |
+| professor | professor123 | Professor | /professor |
+| coordinator | coordinator123 | Coordinator | /coordinator/dashboard |
+| admin | Group20Demo | All roles | /about (can open every page) |
 
-| Username | Password |
+Opening the site goes to the login page. Each role only sees its own pages; `/about` explains the system and links to every role's pages.
+
+## Current Status (Milestone 2)
+**Completed**
+- Role-based login: student, professor and coordinator each have their own pages
+- Student dashboard, Browse Projects with keyword search and program filter
+- Professor dashboard and Add Project form with validation
+- Coordinator dashboard with student counts
+- Presentation availability for students and professors
+- One shared `Project` entity, so projects professors add show up for students
+- CI on every PR, 2 required approvals to merge, deployed to Azure
+
+**In progress**
+- Students apply to a project with a capacity limit (#22)
+- Restyling all pages to match the UI mockup (#28)
+
+## Next Sprint Plan (Sprint 3 – Final Demo, Dec 10)
+| Feature | Owner |
 |---|---|
-| `admin` | `Group20Demo` |
-
-This account can access all pages:
-- `/student/projects` (Browse project topics)
-- `/professor` (Create and manage project topics)
-- `/coordinator/dashboard` (View unassigned students)
-- `/availability` (Submit presentation availability)
-- `/` (Main page explaining the system)
-
+| Students apply to a project, with capacity limits, and see it in "My project" | Gabrielle |
+| Professors manage projects (edit, archive, delete) and accept or reject applications | TBD |
+| Coordinator sees students without a project and sends reminder emails | TBD |
+| Presentation room allocation and scheduling using submitted availability | TBD |
+| Final report submission with a coordinator-set deadline | TBD |
+| Store users in the database instead of hard-coded logins | TBD |
+| Restyle all pages to match the UI mockup | Everyone (own role's pages) |
 
 ## Team Members
 
