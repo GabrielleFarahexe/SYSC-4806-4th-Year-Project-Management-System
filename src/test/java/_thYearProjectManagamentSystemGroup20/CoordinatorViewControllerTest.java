@@ -102,7 +102,7 @@ class CoordinatorViewControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("unassignedStudents",
                         contains(hasProperty("studentNumber", org.hamcrest.Matchers.is("101200002")))))
-                .andExpect(content().string(containsString("<div class=\"metric-value\">1</div>")));
+                .andExpect(content().string(containsString("<div class=\"stat-value\">1</div>")));
     }
 
     // ====== Security ======
