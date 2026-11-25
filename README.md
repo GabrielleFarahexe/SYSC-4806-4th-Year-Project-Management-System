@@ -51,7 +51,7 @@ Opening the site goes to the login page. Each role only sees its own pages; `/ab
 | Name | GitHub Username |
 |---|---|
 | Gabrielle Farah | [@GabrielleFarahexe](https://github.com/GabrielleFarahexe) |
-| Jumana Amr | [@JumanaAmr](https://github.com/JumanaAmr) |
+| Jumana Mahmoud | [@JumanaAmrM](https://github.com/JumanaAmrM) |
 | Matthew Gibeault | [@EnderAres183](https://github.com/EnderAres183) |
 | Jordan Grewal | [@nagasurya](https://github.com/nagasurya) |
 | Aryan Singh | [@AryanK-Singh](https://github.com/AryanK-Singh) |
