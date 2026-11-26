@@ -100,7 +100,7 @@ class ApplicationTests {
                 .build()
                 .perform(get("/dashboard")
                         .with(user("admin")
-                                .roles("STUDENT", "PROFESSOR", "COORDINATOR")))
+                                .roles("ADMIN", "STUDENT", "PROFESSOR", "COORDINATOR")))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/about"));
     }
