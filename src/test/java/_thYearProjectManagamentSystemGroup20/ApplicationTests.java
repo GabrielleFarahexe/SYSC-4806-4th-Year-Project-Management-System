@@ -59,4 +59,50 @@ class ApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("Sign in to continue")));
 	}
+
+    @Test
+    void dashboardRedirectsStudentToStudentDashboard() throws Exception {
+        MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(springSecurity())
+                .build()
+                .perform(get("/dashboard")
+                        .with(user("student").roles("STUDENT")))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/student/dashboard"));
+    }
+
+    @Test
+    void dashboardRedirectsProfessorToProfessorDashboard() throws Exception {
+        MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(springSecurity())
+                .build()
+                .perform(get("/dashboard")
+                        .with(user("professor").roles("PROFESSOR")))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/professor"));
+    }
+
+    @Test
+    void dashboardRedirectsCoordinatorToCoordinatorDashboard() throws Exception {
+        MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(springSecurity())
+                .build()
+                .perform(get("/dashboard")
+                        .with(user("coordinator").roles("COORDINATOR")))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/coordinator/dashboard"));
+    }
+
+    @Test
+    void dashboardRedirectsAdminToAboutPage() throws Exception {
+        MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(springSecurity())
+                .build()
+                .perform(get("/dashboard")
+                        .with(user("admin")
+                                .roles("STUDENT", "PROFESSOR", "COORDINATOR")))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/about"));
+    }
+
 }
