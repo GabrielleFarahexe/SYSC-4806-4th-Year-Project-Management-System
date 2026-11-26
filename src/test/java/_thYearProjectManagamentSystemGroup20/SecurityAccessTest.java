@@ -113,7 +113,7 @@ class SecurityAccessTest {
         var session = (MockHttpSession) login.getRequest().getSession(false);
 
         mockMvc.perform(get("/dashboard").session(session))
-                .andExpect(redirectedUrl("/coordinator/dashboard"));
+                .andExpect(redirectedUrl("/about"));
 
         mockMvc.perform(get("/student/availability").session(session))
                 .andExpect(status().isOk())
