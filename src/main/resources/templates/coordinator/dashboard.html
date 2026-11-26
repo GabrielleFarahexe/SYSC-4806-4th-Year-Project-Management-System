@@ -187,33 +187,6 @@
             background: #eff6ff;
             border-color: #93c5fd;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 12px;
-        }
-        th, td {
-            padding: 12px 14px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        th {
-            background: #f8fafc;
-            font-weight: 600;
-        }
-        .btn {
-            padding: 6px 12px;
-            background: #2563eb;
-            color: #ffffff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.875rem;
-        }
-        .btn:hover {
-            background: #1d4ed8;
-        }
         @media (max-width: 900px) {
             .metrics { grid-template-columns: repeat(2, 1fr); }
             .quick-actions { grid-template-columns: 1fr; }
@@ -247,7 +220,7 @@
             </svg>
             <span>Projects</span>
         </a>
-        <a th:href="@{/coordinator/students/unassigned}">
+        <a th:href="@{/coordinator/students}">
             <svg class="icon" viewBox="0 0 24 24">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
                 <circle cx="9" cy="7" r="4"/>
@@ -287,7 +260,6 @@
                 <h1 th:text="'Welcome, ' + (${username ?: 'coordinator'})">Welcome, coordinator</h1>
             </div>
 
-            <!-- 4 Metric Counters -->
             <section class="metrics">
                 <div class="metric-card">
                     <div class="metric-value" th:text="${totalStudents ?: 0}">0</div>
@@ -298,8 +270,8 @@
                     <div class="metric-label">Students without Project</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value" th:text="${totalProjects ?: 0}">0</div>
-                    <div class="metric-label">Projects</div>
+                    <div class="metric-value" th:text="${availableProjectCount ?: 0}">0</div>
+                    <div class="metric-label">Available Projects</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-value" th:text="${presentationsScheduled ?: 0}">0</div>
@@ -307,7 +279,6 @@
                 </div>
             </section>
 
-            <!-- Quick Actions -->
             <section class="card">
                 <h2>Quick Actions</h2>
                 <div class="quick-actions">

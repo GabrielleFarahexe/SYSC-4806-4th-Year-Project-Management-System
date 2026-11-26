@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.DayOfWeek;
 import java.util.List;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.eq;
@@ -52,6 +54,23 @@ class AvailabilityControllerWebMvcTest {
                         DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY)))
                 .andExpect(model().attribute("hours", List.of(9, 10, 11, 12, 13, 14, 15)))
                 .andExpect(model().attribute("selectedSlots", List.of("MONDAY_9")));
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"STUDENT", "PROFESSOR", "COORDINATOR"})
+    void studentAvailabilityKeepsStudentNavigationForMultiRoleUser() throws Exception {
+        mockMvc.perform(get("/student/availability"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Browse Projects")))
+                .andExpect(content().string(not(containsString("Add Project"))))
+                .andExpect(content().string(containsString("action=\"/student/availability\"")));
+
+        mockMvc.perform(post("/student/availability").with(csrf()))
+                .andExpect(redirectedUrl("/student/availability"));
+
+        mockMvc.perform(get("/professor/availability"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Add Project")));
     }
 
     @Test
