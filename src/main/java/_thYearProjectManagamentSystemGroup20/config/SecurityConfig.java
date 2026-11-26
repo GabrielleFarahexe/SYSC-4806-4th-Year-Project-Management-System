@@ -23,7 +23,7 @@ public class SecurityConfig {
         UserDetails coordinator = User.withUsername("coordinator")
                 .password("{noop}coordinator123").roles("COORDINATOR").build();
         UserDetails admin = User.withUsername("admin")
-                .password("{noop}group20demo").roles("STUDENT", "PROFESSOR", "COORDINATOR").build();
+                .password("{noop}group20demo").roles("ADMIN", "STUDENT", "PROFESSOR", "COORDINATOR").build();
 
         return new InMemoryUserDetailsManager(student, professor, coordinator, admin);
     }

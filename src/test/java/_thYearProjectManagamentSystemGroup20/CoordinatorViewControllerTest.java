@@ -17,7 +17,6 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -40,9 +39,9 @@ class CoordinatorViewControllerTest {
 
     @Test
     void dashboardShowsStudentCountsAndQuickActions() throws Exception {
-        studentRepository.save(new Student("101200001", "Jane Doe", "jane@cmail.carleton.ca", true));
-        studentRepository.save(new Student("101200002", "John Doe", "john@cmail.carleton.ca", false));
-        studentRepository.save(new Student("101200003", "Alice Bob", "alice@cmail.carleton.ca", false));
+        studentRepository.save(new Student("101200001", "Jane Doe", "jane@cmail.carleton.ca", "Software Engineering", true));
+        studentRepository.save(new Student("101200002", "John Doe", "john@cmail.carleton.ca", "Computer Systems", false));
+        studentRepository.save(new Student("101200003", "Alice Bob", "alice@cmail.carleton.ca", "Software Engineering", false));
 
         mockMvc.perform(get("/coordinator/dashboard"))
                 .andExpect(status().isOk())
@@ -72,9 +71,9 @@ class CoordinatorViewControllerTest {
 
     @Test
     void unassignedStudentsListContainsOnlyStudentsWithoutProject() throws Exception {
-        studentRepository.save(new Student("101200001", "Jane Doe", "jane@cmail.carleton.ca", true));
-        studentRepository.save(new Student("101200002", "John Doe", "john@cmail.carleton.ca", false));
-        studentRepository.save(new Student("101200003", "Alice Bob", "alice@cmail.carleton.ca", false));
+        studentRepository.save(new Student("101200001", "Jane Doe", "jane@cmail.carleton.ca", "Software Engineering", true));
+        studentRepository.save(new Student("101200002", "John Doe", "john@cmail.carleton.ca", "Computer Systems", false));
+        studentRepository.save(new Student("101200003", "Alice Bob", "alice@cmail.carleton.ca", "Software Engineering", false));
 
         mockMvc.perform(get("/coordinator/dashboard"))
                 .andExpect(status().isOk())
@@ -85,7 +84,7 @@ class CoordinatorViewControllerTest {
 
     @Test
     void allStudentsAssignedMeansNoneUnassigned() throws Exception {
-        studentRepository.save(new Student("101200001", "Jane Doe", "jane@cmail.carleton.ca", true));
+        studentRepository.save(new Student("101200001", "Jane Doe", "jane@cmail.carleton.ca", "Software Engineering", true));
 
         mockMvc.perform(get("/coordinator/dashboard"))
                 .andExpect(status().isOk())
@@ -96,7 +95,7 @@ class CoordinatorViewControllerTest {
 
     @Test
     void dashboardRendersCountsInPage() throws Exception {
-        studentRepository.save(new Student("101200002", "John Doe", "john@cmail.carleton.ca", false));
+        studentRepository.save(new Student("101200002", "John Doe", "john@cmail.carleton.ca", "Computer Systems", false));
 
         mockMvc.perform(get("/coordinator/dashboard"))
                 .andExpect(status().isOk())

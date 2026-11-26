@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -40,10 +42,19 @@ class HomeControllerWebMvcTest {
     void aboutAndLoginArePublic() throws Exception {
         mockMvc.perform(get("/about"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"));
+                .andExpect(view().name("index"))
+                .andExpect(content().string(containsString("href=\"/login\">Log in</a>")));
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("login"));
+    }
+
+    @Test
+    @WithMockUser(roles = "STUDENT")
+    void signedInVisitorDoesNotSeeLoginOnAboutPage() throws Exception {
+        mockMvc.perform(get("/about"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(not(containsString("href=\"/login\""))));
     }
 
     @Test
@@ -68,10 +79,10 @@ class HomeControllerWebMvcTest {
     }
 
     @Test
-    @WithMockUser(roles = { "STUDENT", "PROFESSOR", "COORDINATOR" })
-    void multiRoleUserGoesToAboutPage() throws Exception {
+    @WithMockUser(username = "admin", roles = {"ADMIN", "STUDENT", "PROFESSOR", "COORDINATOR"})
+    void adminGoesToCoordinatorDashboard() throws Exception {
         mockMvc.perform(get("/dashboard"))
-                .andExpect(redirectedUrl("/about"));
+                .andExpect(redirectedUrl("/coordinator/dashboard"));
     }
 
     @Test

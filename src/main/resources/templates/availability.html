@@ -1,128 +1,53 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Enter Availability</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      padding: 30px;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 5px;
-    }
-
-    th, td {
-      text-align: center;
-      padding: 12px;
-    }
-
-    .slot {
-      cursor: pointer;
-      display: block;
-    }
-
-    .slot input {
-      position: absolute;
-      opacity: 0;
-    }
-
-    .slot span {
-      display: block;
-      background: #e9edf2;
-      padding: 14px;
-      border-radius: 6px;
-    }
-
-    .slot input:checked + span {
-      background: #b9e8ce;
-      color: #135a38;
-    }
-
-    .slot input:focus-visible + span {
-      outline: 3px solid #2563eb;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .success {
-      color: green;
-    }
-  </style>
-</head>
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('My Availability')}"></head>
 <body>
-<div class="container">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: sidebar(${role}, 'availability')}"></aside>
 
-  <h2>Enter Your Availability</h2>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topbar(${role == 'professor'} ? 'Professor' : 'Student')}"></header>
 
-  <p>Select all times when you are available
-    for presentations.</p>
+        <main class="content">
+            <div class="page-header">
+                <h1>My Availability for Oral Presentations</h1>
+            </div>
 
-  <p class="success" th:if="${success}"
-     th:text="${success}"></p>
+            <p class="alert alert-success" th:if="${success}" th:text="${success}"></p>
 
-  <form th:action="@{/availability}" method="post">
+            <form class="card" th:action="@{${availabilityPath}}" method="post">
+                <p class="muted">Select all the times you are available (you can select multiple slots).</p>
 
-    <table>
-      <thead>
-      <tr>
-        <th>Time</th>
-        <th th:each="day : ${days}"
-            th:text="${day}">
-        </th>
-      </tr>
-      </thead>
+                <table class="availability-grid">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th th:each="day : ${days}"
+                            th:text="${#strings.capitalize(#strings.toLowerCase(day.name()))}">Monday</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="hour : ${hours}">
+                        <td th:text="${hour + ':00 - ' + (hour + 1) + ':00'}">9:00 - 10:00</td>
+                        <td th:each="day : ${days}">
+                            <label class="slot">
+                                <input type="checkbox" name="slots"
+                                       th:value="${day.name() + '_' + hour}"
+                                       th:checked="${selectedSlots.contains(day.name() + '_' + hour)}"
+                                       th:attr="aria-label=${day.name() + ' ' + hour + ':00'}">
+                                <span>✓</span>
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
-      <tbody>
-      <tr th:each="hour : ${hours}">
-        <td th:text="${hour + ':00 - ' +
-                            (hour + 1) + ':00'}">
-        </td>
-
-        <td th:each="day : ${days}">
-          <label class="slot">
-            <input
-                    type="checkbox"
-                    name="slots"
-                    th:value="${day.name() + '_' + hour}"
-                    th:checked="${selectedSlots.contains(
-                                    day.name() + '_' + hour
-                                )}">
-
-            <span>✓</span>
-          </label>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-
-    <button type="submit">
-      Save Availability
-    </button>
-  </form>
+                <div class="form-actions">
+                    <button type="submit" class="button">Save Availability</button>
+                </div>
+            </form>
+        </main>
+    </div>
 </div>
 </body>
 </html>
