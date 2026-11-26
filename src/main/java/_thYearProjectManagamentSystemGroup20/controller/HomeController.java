@@ -24,7 +24,8 @@ public class HomeController {
 
     // Public page explaining the system
     @GetMapping("/about")
-    public String about() {
+    public String about(Authentication authentication, Model model) {
+        model.addAttribute("showLogin", authentication == null);
         return "index";
     }
 
