@@ -3,7 +3,9 @@ package _thYearProjectManagamentSystemGroup20.controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,6 +28,12 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/{role:student|professor|coordinator}/about")
+    public String dashboardAbout(@PathVariable String role, Model model) {
+        model.addAttribute("dashboardRole", role);
+        return "index";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -41,14 +49,11 @@ public class HomeController {
                 .filter(authority -> authority.startsWith("ROLE_"))
                 .collect(Collectors.toSet());
 
-        if (roles.size() > 1) {
-            return "redirect:/about"; // admin has every role, so show the about page with links to everything
+        if (roles.contains("ROLE_COORDINATOR")) {
+            return "redirect:/coordinator/dashboard";
         }
         if (roles.contains("ROLE_PROFESSOR")) {
             return "redirect:/professor";
-        }
-        if (roles.contains("ROLE_COORDINATOR")) {
-            return "redirect:/coordinator/dashboard";
         }
         return "redirect:/student/dashboard";
     }

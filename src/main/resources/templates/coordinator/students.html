@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Students')}"></head>
+<body>
+<div class="app">
+    <aside th:replace="~{fragments/layout :: sidebar('coordinator', 'students')}"></aside>
+
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topbar('Coordinator')}"></header>
+
+        <main class="content">
+            <div class="page-header">
+                <h1>Students</h1>
+            </div>
+
+            <section class="card">
+                <p>
+                    Assigned <strong th:text="${assignedCount}">0</strong>
+                    &middot; Unassigned <strong th:text="${unassignedCount}">0</strong>
+                </p>
+
+                <p class="muted" th:if="${#lists.isEmpty(students)}">No students found.</p>
+
+                <table class="table" th:unless="${#lists.isEmpty(students)}">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Project Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.name}">Name</td>
+                        <td th:text="${student.assigned} ? 'Assigned' : 'Unassigned'">Unassigned</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</div>
+</body>
+</html>

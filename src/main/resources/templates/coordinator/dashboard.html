@@ -23,8 +23,8 @@
                     <div class="stat-label">Students without Project</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value" th:text="${totalProjects} ?: 0">0</div>
-                    <div class="stat-label">Projects</div>
+                    <div class="stat-value" th:text="${availableProjectCount}">0</div>
+                    <div class="stat-label">Available Projects</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" th:text="${presentationsScheduled} ?: 0">0</div>

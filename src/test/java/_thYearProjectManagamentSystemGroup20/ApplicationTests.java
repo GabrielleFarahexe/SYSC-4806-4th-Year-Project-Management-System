@@ -32,8 +32,8 @@ class ApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(view().name("index"))
 				.andExpect(content().string(containsString("Fourth-Year Project Management System")))
-				.andExpect(content().string(containsString("Professor dashboard")))
-				.andExpect(content().string(containsString("Coordinator dashboard")));
+				.andExpect(content().string(containsString("Professors")))
+				.andExpect(content().string(containsString("Project Coordinator")));
 	}
 
 	@Test
