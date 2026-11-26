@@ -9,7 +9,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import _thYearProjectManagamentSystemGroup20.model.Program;
 import _thYearProjectManagamentSystemGroup20.model.Project;
+import _thYearProjectManagamentSystemGroup20.model.ProjectStatus;
 import _thYearProjectManagamentSystemGroup20.repository.ProjectRepository;
 
 import java.util.Set;
@@ -25,7 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Full-context tests; @Transactional rolls the database back after each test.
  * Spring Security is on the classpath, so every request runs as a logged-in
- * mock professor (@WithMockUser) and every POST carries a CSRF token (.with(csrf())),
+ * mock professor (@WithMockUser) and every POST carries a CSRF token
+ * (.with(csrf())),
  * just like a real browser submitting the Thymeleaf form.
  */
 @SpringBootTest
@@ -85,11 +88,11 @@ class ProfessorControllerTest {
     @Test
     void validProjectIsSavedAndRedirectsToDashboard() throws Exception {
         mockMvc.perform(post("/professor/projects")
-                        .with(csrf())
-                        .param("title", "AI Tutor")
-                        .param("description", "An intelligent tutoring system")
-                        .param("programRestrictions", "SOFTWARE_ENGINEERING", "COMPUTER_SYSTEMS_ENGINEERING")
-                        .param("requiredStudents", "4"))
+                .with(csrf())
+                .param("title", "AI Tutor")
+                .param("description", "An intelligent tutoring system")
+                .param("programRestrictions", "SOFTWARE_ENGINEERING", "COMPUTER_SYSTEMS_ENGINEERING")
+                .param("requiredStudents", "4"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/professor"))
                 .andExpect(flash().attributeExists("successMessage"));
@@ -107,10 +110,10 @@ class ProfessorControllerTest {
     @Test
     void projectWithNoRestrictionsIsOpenToAll() throws Exception {
         mockMvc.perform(post("/professor/projects")
-                        .with(csrf())
-                        .param("title", "Open Topic")
-                        .param("description", "Anyone can apply")
-                        .param("requiredStudents", "2"))
+                .with(csrf())
+                .param("title", "Open Topic")
+                .param("description", "Anyone can apply")
+                .param("requiredStudents", "2"))
                 .andExpect(status().is3xxRedirection());
 
         assertThat(projectRepository.findAll()).singleElement()
@@ -120,10 +123,10 @@ class ProfessorControllerTest {
     @Test
     void invalidProjectReshowsFormWithErrors() throws Exception {
         mockMvc.perform(post("/professor/projects")
-                        .with(csrf())
-                        .param("title", "")
-                        .param("description", "")
-                        .param("requiredStudents", "0"))
+                .with(csrf())
+                .param("title", "")
+                .param("description", "")
+                .param("requiredStudents", "0"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("professor/project-form"))
                 .andExpect(model().attributeHasFieldErrors("project", "title", "description", "requiredStudents"))

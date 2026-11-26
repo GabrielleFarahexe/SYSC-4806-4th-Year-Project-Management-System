@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import _thYearProjectManagamentSystemGroup20.Program;
-import _thYearProjectManagamentSystemGroup20.ProjectStatus;
+import _thYearProjectManagamentSystemGroup20.model.Program;
+import _thYearProjectManagamentSystemGroup20.model.ProjectStatus;
 import _thYearProjectManagamentSystemGroup20.model.Project;
 import _thYearProjectManagamentSystemGroup20.repository.ProjectRepository;
 import jakarta.validation.Valid;
@@ -30,7 +30,10 @@ public class ProfessorController {
         this.projectRepository = projectRepository;
     }
 
-    /** Program list for the restrictions dropdown, available to every view of this controller. */
+    /**
+     * Program list for the restrictions dropdown, available to every view of this
+     * controller.
+     */
     @ModelAttribute("programs")
     public Program[] programs() {
         return Program.values();
@@ -43,7 +46,7 @@ public class ProfessorController {
         model.addAttribute("totalProjects", projectRepository.countByStatusNot(ProjectStatus.DELETED));
         model.addAttribute("activeProjects", projectRepository.countByStatus(ProjectStatus.ACTIVE));
         // TODO: replace with the real counts once the Application and Presentation
-        //       entities/repositories exist (owned by other team members).
+        // entities/repositories exist (owned by other team members).
         model.addAttribute("totalApplications", 0L);
         model.addAttribute("upcomingPresentations", 0L);
         model.addAttribute("recentProjects",
@@ -61,8 +64,8 @@ public class ProfessorController {
 
     @PostMapping("/projects")
     public String createProject(@Valid @ModelAttribute("project") Project project,
-                                BindingResult bindingResult,
-                                RedirectAttributes redirectAttributes) {
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "professor/project-form"; // re-show the form with error messages
         }

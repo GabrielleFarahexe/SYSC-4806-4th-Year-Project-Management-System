@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('About')}"></head>
+<body>
+<div class="public-page">
+
+    <header class="public-header">
+        <div>
+            <h1>Fourth-Year Project Management System</h1>
+            <p class="muted">SYSC 4806 &middot; Carleton University &middot; Group 20</p>
+        </div>
+        <a class="button" th:href="@{/login}">Sign in</a>
+    </header>
+
+    <section class="card">
+        <h2>What is this?</h2>
+        <p>
+            Every fourth-year engineering student at Carleton completes a capstone project.
+            This system brings the whole process into one place: professors post project topics,
+            students browse topics and apply to the ones that fit their program, and the project
+            coordinator tracks which students still need a project and organizes oral presentations
+            and final report deadlines.
+        </p>
+    </section>
+
+    <h2>Who uses it?</h2>
+    <div class="roles">
+        <div class="card">
+            <h3>Students</h3>
+            <p>Browse available project topics, filter by program, and submit your
+                availability for oral presentations.</p>
+            <a class="button" th:href="@{/student/projects}">Browse projects</a>
+            <a class="button secondary" th:href="@{/availability}">Enter availability</a>
+        </div>
+
+        <div class="card">
+            <h3>Professors</h3>
+            <p>Create project topics with descriptions, program restrictions and student
+                capacity, then edit or archive them as needed.</p>
+            <a class="button" th:href="@{/professor}">Professor dashboard</a>
+        </div>
+
+        <div class="card">
+            <h3>Project Coordinator</h3>
+            <p>See which students do not have a project yet, and coordinate presentations
+                and submission deadlines.</p>
+            <a class="button" th:href="@{/coordinator/dashboard}">Coordinator dashboard</a>
+        </div>
+    </div>
+
+    <section class="card" style="margin-top: 1.5rem">
+        <h2>How it works</h2>
+        <ol>
+            <li>Professors post project topics.</li>
+            <li>Students browse topics and apply to one that matches their program.</li>
+            <li>The coordinator follows up with students who have no project.</li>
+            <li>Students submit availability, and oral presentations are scheduled.</li>
+            <li>Teams submit their final reports before the coordinator's deadline.</li>
+        </ol>
+    </section>
+
+    <footer class="footer">
+        SYSC 4806 Group 20 &middot; Gabrielle Farah, Jumana Amr, Matthew Gibeault, Jordan Grewal, Aryan Singh
+    </footer>
+
+</div>
+</body>
+</html>

@@ -160,7 +160,7 @@
         <div class="sidebar-brand">4th Year Project</div>
         <a th:href="@{/coordinator/dashboard}" class="active">Dashboard</a>
         <a th:href="@{/student/projects}">Projects</a>
-        <a th:href="@{/coordinator/students/unassigned}">Students</a>
+        <a href="#unassigned-students">Students</a>
         <a th:href="@{/availability}">Presentations</a>
     </aside>
 
@@ -194,7 +194,7 @@
         <section class="card">
             <h2>Quick Actions</h2>
             <div class="quick-actions">
-                <a th:href="@{/coordinator/students/unassigned}" class="action-btn">Find Students without Project</a>
+                <a href="#unassigned-students" class="action-btn">Find Students without Project</a>
                 <a th:href="@{/availability}" class="action-btn">Allocate Presentations</a>
                 <a th:href="@{/coordinator/deadlines}" class="action-btn">Set Report Deadline</a>
                 <a th:href="@{/coordinator/reminders}" class="action-btn">Send Reminder Emails</a>

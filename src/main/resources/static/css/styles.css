@@ -1,0 +1,737 @@
+/* ==========================================================================
+   4th Year Project Management System - shared stylesheet
+   Every page links this file. Layout pieces (sidebar, top bar) come from
+   templates/fragments/layout.html.
+   ========================================================================== */
+
+:root {
+    --navy: #1e3a5f;
+    --navy-dark: #172f4d;
+    --navy-active: #2c5282;
+
+    --primary: #1d6fd8;
+    --primary-hover: #1658ad;
+    --primary-soft: #eaf2fd;
+
+    --bg: #f3f6fb;
+    --surface: #ffffff;
+    --border: #e3e8ef;
+    --text: #1f2937;
+    --muted: #6b7280;
+
+    --success: #15803d;
+    --success-soft: #e7f6ec;
+    --warning: #b45309;
+    --warning-soft: #fef3c7;
+    --danger: #c62828;
+    --danger-soft: #fdecec;
+
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(15, 35, 70, 0.06), 0 1px 2px rgba(15, 35, 70, 0.04);
+    --sidebar-width: 220px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    background: var(--bg);
+    color: var(--text);
+}
+
+a {
+    color: var(--primary);
+}
+
+h1, h2, h3 {
+    margin: 0 0 0.75rem;
+    line-height: 1.25;
+}
+
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.1rem; }
+h3 { font-size: 1rem; }
+
+.muted {
+    color: var(--muted);
+}
+
+/* ---------- App shell: sidebar + top bar + content ---------- */
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    flex-shrink: 0;
+    background: var(--navy);
+    color: #cbd5e1;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    height: 56px;
+    padding: 0 1.25rem;
+    background: var(--navy-dark);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.sidebar nav {
+    padding: 0.75rem 0;
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    color: #cbd5e1;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+}
+
+.sidebar nav a:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+}
+
+.sidebar nav a.active {
+    background: var(--navy-active);
+    border-left-color: #7fb2f0;
+    color: #fff;
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.app-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    height: 56px;
+    padding: 0 2rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.avatar {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.content {
+    width: 100%;
+    max-width: 1100px;
+    padding: 2rem;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+    margin: 0;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.card-header h2,
+.card-header h3 {
+    margin: 0;
+}
+
+/* ---------- Stat cards ---------- */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.2;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.stat-sub {
+    display: block;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.stat-card.alert {
+    background: var(--danger-soft);
+    border-color: #f6caca;
+}
+
+.stat-card.alert .stat-value,
+.stat-card.alert .stat-label {
+    color: var(--danger);
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    background: var(--primary);
+    color: #fff;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.button:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.button.secondary {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--text);
+}
+
+.button.secondary:hover {
+    background: var(--bg);
+}
+
+.button.danger {
+    background: var(--danger);
+    border-color: var(--danger);
+}
+
+.button.small {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+}
+
+.button.link {
+    background: none;
+    border: none;
+    color: var(--muted);
+    padding: 0.3rem 0.5rem;
+}
+
+.button.link:hover {
+    color: var(--text);
+}
+
+/* ---------- Alerts ---------- */
+
+.alert {
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+}
+
+.alert-success {
+    background: var(--success-soft);
+    color: var(--success);
+}
+
+.alert-error {
+    background: var(--danger-soft);
+    color: var(--danger);
+}
+
+/* ---------- Badges and tags ---------- */
+
+.badge {
+    display: inline-block;
+    border-radius: 6px;
+    padding: 0.1rem 0.55rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+.badge.success { background: var(--success-soft); color: var(--success); }
+.badge.warning { background: var(--warning-soft); color: var(--warning); }
+.badge.danger  { background: var(--danger-soft);  color: var(--danger); }
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.tag {
+    background: #eef1f6;
+    color: #475569;
+    border-radius: 6px;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.78rem;
+}
+
+/* ---------- Lists ---------- */
+
+.activity {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.activity li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--border);
+}
+
+.activity li:first-child {
+    border-top: none;
+}
+
+.activity .icon {
+    color: var(--primary);
+}
+
+.activity .grow {
+    flex: 1;
+}
+
+.activity .time {
+    color: var(--muted);
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 1.5rem 1rem;
+}
+
+.empty-state h2 {
+    margin-bottom: 0.35rem;
+}
+
+.empty-state p {
+    margin: 0 0 1rem;
+}
+
+/* ---------- Quick actions ---------- */
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1rem;
+    background: var(--primary-soft);
+    border: 1px solid #d3e3fa;
+    border-radius: 8px;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.action-btn:hover {
+    border-color: var(--primary);
+}
+
+/* ---------- Tables ---------- */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.table th,
+.table td {
+    padding: 0.7rem 0.85rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.table th {
+    background: #f8fafc;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: #475569;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ---------- Forms ---------- */
+
+.field {
+    margin-bottom: 1.1rem;
+}
+
+.field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.field input,
+.field textarea,
+.field select,
+.filters input,
+.filters select {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #d1d7e0;
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.9rem;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus,
+.filters input:focus,
+.filters select:focus {
+    outline: 2px solid var(--primary-soft);
+    border-color: var(--primary);
+}
+
+.field .invalid {
+    border-color: var(--danger);
+}
+
+.field .error {
+    color: var(--danger);
+    font-size: 0.82rem;
+    margin: 0.3rem 0 0;
+}
+
+.field .hint {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin: 0.3rem 0 0;
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.filters input {
+    flex: 1 1 240px;
+    width: auto;
+}
+
+.filters select {
+    flex: 0 1 220px;
+    width: auto;
+}
+
+/* ---------- Project cards ---------- */
+
+.project-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.project-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-bottom: 0;
+}
+
+.project-item h3 {
+    margin-bottom: 0.3rem;
+}
+
+.project-item p {
+    margin: 0 0 0.6rem;
+    color: #475569;
+    font-size: 0.9rem;
+}
+
+/* ---------- Availability grid ---------- */
+
+.availability-grid {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 6px;
+}
+
+.availability-grid th:first-child {
+    width: 120px;
+}
+
+.availability-grid th {
+    font-size: 0.85rem;
+    color: #475569;
+    font-weight: 600;
+}
+
+.availability-grid td:first-child {
+    font-size: 0.85rem;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.slot {
+    display: block;
+    cursor: pointer;
+}
+
+.slot input {
+    position: absolute;
+    opacity: 0;
+}
+
+.slot span {
+    display: block;
+    padding: 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #f8fafc;
+    color: transparent;
+    text-align: center;
+}
+
+.slot:hover span {
+    border-color: var(--primary);
+}
+
+.slot input:checked + span {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.slot input:focus-visible + span {
+    outline: 3px solid #9cc3f5;
+}
+
+/* ---------- Login and public pages ---------- */
+
+.auth-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: #e9f0fa;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    padding: 2rem;
+}
+
+.auth-card .logo {
+    color: var(--navy);
+}
+
+.auth-card h1 {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+}
+
+.auth-card .field {
+    text-align: left;
+}
+
+.auth-card .button {
+    width: 100%;
+    margin-top: 0.25rem;
+}
+
+.public-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem;
+}
+
+.public-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.public-header h1 {
+    margin: 0;
+}
+
+.roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.roles .card {
+    margin-bottom: 0;
+}
+
+.roles .button {
+    margin: 0.25rem 0.25rem 0 0;
+}
+
+.footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 800px) {
+    .app {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .sidebar nav {
+        display: flex;
+        overflow-x: auto;
+        padding: 0;
+    }
+
+    .sidebar nav a {
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+    }
+
+    .sidebar nav a.active {
+        border-bottom-color: #7fb2f0;
+    }
+
+    .content {
+        padding: 1.25rem;
+    }
+
+    .field-row {
+        grid-template-columns: 1fr;
+    }
+
+    .project-item {
+        flex-direction: column;
+    }
+}
