@@ -12,6 +12,8 @@ import _thYearProjectManagamentSystemGroup20.Availability.AvailabilityService;
 
 import java.util.List;
 import _thYearProjectManagamentSystemGroup20.Availability.Weekday;
+import _thYearProjectManagamentSystemGroup20.repository.ProjectRepository;
+import _thYearProjectManagamentSystemGroup20.model.Project;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -25,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @SpringBootTest(classes = Application.class)
 @Transactional
@@ -40,7 +43,7 @@ class AvailabilityTest {
     private Long projectId;
 
 	@Autowired
-    private _thYearProjectManagamentSystemGroup20.repository.ProjectRepository projects;
+    private ProjectRepository projects;
 
     @BeforeEach
 	void setUp() {
@@ -173,7 +176,7 @@ class AvailabilityTest {
 
 	@Test
 	void updatingAnotherProjectOfTheSameProfessorPreservesTeamAvailability() {
-        var second = new _thYearProjectManagamentSystemGroup20.model.Project("Second", "Other team", java.util.Set.of(), 1);
+        var second = new Project("Second", "Other team", java.util.Set.of(), 1);
         second.assignTeam("professor", java.util.Set.of());
         projects.save(second);
         availabilityService.saveAvailability("professor", second.getId(), List.of("TUESDAY_10"));
