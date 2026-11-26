@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,8 +25,8 @@ public class HomeController {
 
     // Public page explaining the system
     @GetMapping("/about")
-    public String about(Authentication authentication, Model model) {
-        model.addAttribute("showLogin", authentication == null);
+    public String about(Authentication authentication, @RequestParam(required = false) String from, Model model) {
+        model.addAttribute("showLogin", authentication == null || "login".equals(from));
         return "index";
     }
 

@@ -51,6 +51,15 @@ class HomeControllerWebMvcTest {
 
     @Test
     @WithMockUser(roles = "STUDENT")
+    void aboutLinkFromLoginOffersReturnEvenWithAnExistingSession() throws Exception {
+        mockMvc.perform(get("/login"))
+                .andExpect(content().string(containsString("href=\"/about?from=login\"")));
+        mockMvc.perform(get("/about").param("from", "login"))
+                .andExpect(content().string(containsString("href=\"/login\">Log in</a>")));
+    }
+
+    @Test
+    @WithMockUser(roles = "STUDENT")
     void signedInVisitorDoesNotSeeLoginOnAboutPage() throws Exception {
         mockMvc.perform(get("/about"))
                 .andExpect(status().isOk())
