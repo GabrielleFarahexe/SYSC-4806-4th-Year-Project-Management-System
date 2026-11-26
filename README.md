@@ -17,9 +17,9 @@ The system will provide a centralized platform for students, professors, and pro
 | student | student123 | Student | /student/dashboard |
 | professor | professor123 | Professor | /professor |
 | coordinator | coordinator123 | Coordinator | /coordinator/dashboard |
-| admin | group20demo | All roles | /about (can open every page) |
+| admin | group20demo | All roles | /coordinator/dashboard |
 
-Opening the site goes to the login page. Each role only sees its own pages; `/about` explains the system and links to every role's pages.
+Opening the site goes to the login page. Each role only sees its own page/dashboard.
 
 ## Current Status (Milestone 2)
 **Completed**
