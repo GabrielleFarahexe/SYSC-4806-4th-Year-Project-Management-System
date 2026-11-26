@@ -50,9 +50,6 @@ public class HomeController {
                 .filter(authority -> authority.startsWith("ROLE_"))
                 .collect(Collectors.toSet());
 
-        if (roles.contains("ROLE_ADMIN")) {
-            return "redirect:/about";
-        }
         if (roles.contains("ROLE_COORDINATOR")) {
             return "redirect:/coordinator/dashboard";
         }

@@ -94,7 +94,7 @@ class ApplicationTests {
     }
 
     @Test
-    void dashboardRedirectsAdminToAboutPage() throws Exception {
+    void dashboardRedirectsAdminToCoordinatorDashboard() throws Exception {
         MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
                 .build()
@@ -102,7 +102,7 @@ class ApplicationTests {
                         .with(user("admin")
                                 .roles("ADMIN", "STUDENT", "PROFESSOR", "COORDINATOR")))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/about"));
+                .andExpect(redirectedUrl("/coordinator/dashboard"));
     }
 
 }

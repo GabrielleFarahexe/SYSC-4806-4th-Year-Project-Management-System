@@ -80,9 +80,9 @@ class HomeControllerWebMvcTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN", "STUDENT", "PROFESSOR", "COORDINATOR"})
-    void adminGoesToAboutPage() throws Exception {
+    void adminGoesToCoordinatorDashboard() throws Exception {
         mockMvc.perform(get("/dashboard"))
-                .andExpect(redirectedUrl("/about"));
+                .andExpect(redirectedUrl("/coordinator/dashboard"));
     }
 
     @Test
