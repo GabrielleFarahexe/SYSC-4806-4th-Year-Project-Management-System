@@ -1,6 +1,8 @@
 package _thYearProjectManagamentSystemGroup20.controller;
 
+import _thYearProjectManagamentSystemGroup20.model.ProjectStatus;
 import _thYearProjectManagamentSystemGroup20.model.Student;
+import _thYearProjectManagamentSystemGroup20.repository.ProjectRepository;
 import _thYearProjectManagamentSystemGroup20.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,15 +19,20 @@ public class CoordinatorViewController {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
     @GetMapping("/coordinator/dashboard")
     public String index(Model model) {
         long totalStudents = studentRepository.count();
         long unassignedCount = studentRepository.countByAssigned(false);
         List<Student> unassignedStudents = studentRepository.findByAssigned(false);
+        long totalProjects = projectRepository.countByStatusNot(ProjectStatus.DELETED);
 
         model.addAttribute("totalStudents", totalStudents);
         model.addAttribute("unassignedCount", unassignedCount);
         model.addAttribute("unassignedStudents", unassignedStudents);
+        model.addAttribute("totalProjects", totalProjects);
 
         return "coordinator/dashboard";
     }
