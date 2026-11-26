@@ -43,7 +43,7 @@ Opening the site goes to the login page. Each role only sees its own pages; `/ab
 | Presentation room allocation and scheduling using submitted availability | Jordan |
 | Professors manage projects (edit, archive, delete) and accept or reject applications | Aryan |
 | Coordinator sees students without a project and sends reminder emails | Jumana |
-| Move to PostgreSQL so data persists on Azure, and expand test coverage | Matthew |
+| Move to PostgreSQL so data persists on Azure | Matthew |
 | Final report submission with a coordinator-set deadline | Jumana & Matthew |
 | Remove or finish links to unbuilt pages (no dangling links for the final demo) | Everyone |
 
