@@ -673,6 +673,12 @@ h3 { font-size: 1rem; }
     color: #fff;
 }
 
+.slot input:disabled + span {
+    background: #dce1e6;
+    border-color: transparent;
+    cursor: not-allowed;
+}
+
 .slot input:focus-visible + span {
     outline: 3px solid #9cc3f5;
 }
@@ -800,3 +806,13 @@ h3 { font-size: 1rem; }
         padding-inline: 0.75rem;
     }
 }
+
+.presentation-picker {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    max-width: 95vw;
+    padding: 1.5rem;
+}
+.presentation-picker::backdrop { background: rgb(15 23 42 / 50%); }
+.presentation-picker .slot input:enabled + span { background: #bbf7d0; border-color: #15803d; }
+.presentation-picker .slot input:checked + span { background: #166534; color: white; }

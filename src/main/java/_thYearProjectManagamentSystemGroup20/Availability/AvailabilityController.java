@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.DayOfWeek;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -26,6 +25,7 @@ public class AvailabilityController {
     @GetMapping
     public String showAvailability(
             @PathVariable(name = "role", required = false) String role,
+            @RequestParam(required = false) Long projectId,
             Model model,
             Authentication authentication) {
 
@@ -39,19 +39,22 @@ public class AvailabilityController {
         model.addAttribute("role", sidebarRole);
         model.addAttribute("availabilityPath", availabilityPath(role));
 
-        model.addAttribute("days", List.of(
-                DayOfWeek.MONDAY,
-                DayOfWeek.TUESDAY,
-                DayOfWeek.WEDNESDAY,
-                DayOfWeek.THURSDAY,
-                DayOfWeek.FRIDAY
-        ));
+        model.addAttribute("days", List.of(Weekday.values()));
 
         model.addAttribute("hours",
                 IntStream.range(9, 16).boxed().toList());
 
-        model.addAttribute("selectedSlots",
-                service.getAvailability(username));
+        if (sidebarRole.equals("student")) {
+            model.addAttribute("selectedSlots", service.teamSlots(username));
+            model.addAttribute("allowedSlots", service.allowedSlots(username));
+        } else {
+            model.addAttribute("reserved", service.reservedSlots(username));
+            var projects = service.professorProjects(username);
+            if (projectId == null && !projects.isEmpty()) projectId = projects.get(0).getId();
+            model.addAttribute("projects", projects);
+            model.addAttribute("projectId", projectId);
+            model.addAttribute("selectedSlots", projectId == null ? List.of() : service.getAvailability(username, projectId));
+        }
 
         return "availability";
     }
@@ -59,6 +62,7 @@ public class AvailabilityController {
     @PostMapping
     public String saveAvailability(
             @PathVariable(name = "role", required = false) String role,
+            @RequestParam(required = false) Long projectId,
             @RequestParam(name = "slots", required = false)
             List<String> slots,
             Authentication authentication,
@@ -67,7 +71,15 @@ public class AvailabilityController {
         String username = authentication.getName();
 
         try {
-            service.saveAvailability(username, slots == null ? List.of() : slots);
+            boolean professor = role == null ? AuthorityUtils.authorityListToSet(authentication.getAuthorities())
+                    .contains("ROLE_PROFESSOR") : role.equals("professor");
+            List<String> selection = slots == null ? List.of() : slots;
+            if (professor) {
+                if (projectId == null) throw new IllegalArgumentException("Choose a project");
+                service.saveAvailability(username, projectId, selection);
+                redirectAttributes.addAttribute("projectId", projectId);
+            }
+            else service.saveTeamSlots(username, selection);
         } catch (IllegalArgumentException exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid availability slots", exception);
         }

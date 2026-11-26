@@ -23,22 +23,32 @@ public class SampleDataLoader {
                                 return;
                         }
 
-                        repository.save(new Project("Smart Campus Parking Tracker",
+                        Project parking = new Project("Smart Campus Parking Tracker",
                                         "IoT sensors and a web dashboard showing live parking availability on campus.",
                                         Set.of(Program.COMPUTER_SYSTEMS_ENGINEERING, Program.ELECTRICAL_ENGINEERING),
-                                        4));
-                        repository.save(new Project("ML-Based Code Review Assistant",
+                                        4);
+                        parking.assignTeam("admin", Set.of("admin"));
+                        repository.save(parking);
+                        Project review = new Project("ML-Based Code Review Assistant",
                                         "A model that flags common bugs in student pull requests.",
-                                        Set.of(Program.SOFTWARE_ENGINEERING, Program.COMPUTER_SYSTEMS_ENGINEERING), 3));
-                        repository.save(new Project("Autonomous Drone Navigation",
+                                        Set.of(Program.SOFTWARE_ENGINEERING, Program.COMPUTER_SYSTEMS_ENGINEERING), 3);
+                        review.assignTeam("professor", Set.of());
+                        repository.save(review);
+                        Project drone = new Project("Autonomous Drone Navigation",
                                         "Obstacle avoidance and path planning for an indoor quadcopter.",
-                                        Set.of(), 5)); // empty = open to all programs
-                        repository.save(new Project("Accessible Transit Mobile App",
+                                        Set.of(), 5);
+                        drone.assignTeam("professor", Set.of());
+                        repository.save(drone); // empty = open to all programs
+                        Project transit = new Project("Accessible Transit Mobile App",
                                         "An OC Transpo app focused on screen-reader support.",
-                                        Set.of(Program.SOFTWARE_ENGINEERING), 4));
-                        repository.save(new Project("Low-Power Wearable Health Monitor",
+                                        Set.of(Program.SOFTWARE_ENGINEERING), 4);
+                        transit.assignTeam("professor", Set.of());
+                        repository.save(transit);
+                        Project monitor = new Project("Low-Power Wearable Health Monitor",
                                         "A wrist-worn device that tracks heart rate for a week on one charge.",
-                                        Set.of(Program.ELECTRICAL_ENGINEERING), 3));
+                                        Set.of(Program.ELECTRICAL_ENGINEERING), 3);
+                        monitor.assignTeam("professor", Set.of());
+                        repository.save(monitor);
 
                         Project archived = new Project("Legacy Course Scheduler",
                                         "Old topic that students should not see.", Set.of(), 3);

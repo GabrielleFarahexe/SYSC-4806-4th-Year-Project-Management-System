@@ -28,6 +28,7 @@ public class CoordinatorViewController {
         List<Student> unassignedStudents = studentRepository.findByAssigned(false);
 
         model.addAttribute("availableProjectCount", projectRepository.countByStatus(ProjectStatus.ACTIVE));
+        model.addAttribute("presentationsScheduled", projectRepository.countByScheduledSlotIsNotNull());
         model.addAttribute("totalStudents", totalStudents);
         model.addAttribute("unassignedCount", unassignedCount);
         model.addAttribute("unassignedStudents", unassignedStudents);

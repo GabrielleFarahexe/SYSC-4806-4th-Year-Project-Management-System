@@ -15,35 +15,24 @@
 
             <p class="alert alert-success" th:if="${success}" th:text="${success}"></p>
 
-            <form class="card" th:action="@{${availabilityPath}}" method="post">
-                <p class="muted">Select all the times you are available (you can select multiple slots).</p>
+            <form th:if="${role == 'professor' and !projects.isEmpty()}" th:action="@{${availabilityPath}}" method="get">
+                <label for="project">Project</label>
+                <select id="project" name="projectId" onchange="this.form.requestSubmit()">
+                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.title}"
+                            th:selected="${project.id == projectId}"></option>
+                </select>
+                <noscript><button type="submit" class="button">View project</button></noscript>
+            </form>
+            <p th:if="${role == 'professor' and projectId == null}">Create a project to set its availability.</p>
+            <form th:if="${role == 'student' or projectId != null}" class="card" th:action="@{${availabilityPath}}" method="post">
+                <input th:if="${projectId != null}" type="hidden" name="projectId" th:value="${projectId}">
+                <p class="muted" th:if="${role == 'student'}" th:text="${allowedSlots.isEmpty()} ? 'No professor slots are available for your project.' : 'Select from your professor’s available times. Your selection is shared with every student on your project.'"></p>
+                <p class="muted" th:if="${role == 'professor'}">Select all the times you are available (you can select multiple slots).</p>
 
-                <table class="availability-grid">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th th:each="day : ${days}"
-                            th:text="${#strings.capitalize(#strings.toLowerCase(day.name()))}">Monday</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="hour : ${hours}">
-                        <td th:text="${hour + ':00 - ' + (hour + 1) + ':00'}">9:00 - 10:00</td>
-                        <td th:each="day : ${days}">
-                            <label class="slot">
-                                <input type="checkbox" name="slots"
-                                       th:value="${day.name() + '_' + hour}"
-                                       th:checked="${selectedSlots.contains(day.name() + '_' + hour)}"
-                                       th:attr="aria-label=${day.name() + ' ' + hour + ':00'}">
-                                <span>✓</span>
-                            </label>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <table th:replace="~{fragments/availability-grid :: grid}"></table>
 
                 <div class="form-actions">
-                    <button type="submit" class="button">Save Availability</button>
+                    <button th:disabled="${allowedSlots != null and allowedSlots.isEmpty()}" type="submit" class="button">Save Availability</button>
                 </div>
             </form>
         </main>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Presentations')}"></head>
+<body><div class="app">
+    <aside th:replace="~{fragments/layout :: sidebar('coordinator', 'presentations')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topbar('Coordinator')}"></header>
+        <main class="content">
+            <h1>Presentations</h1>
+            <p th:if="${error}" role="alert" th:text="${error}"></p>
+            <section class="card">
+                <table class="table">
+                    <thead><tr><th>Project name</th><th>Professor name</th><th>Availability</th><th>Scheduled</th></tr></thead>
+                    <tbody><tr th:each="project : ${projects}">
+                        <td th:text="${project.title}"></td>
+                        <td th:text="${project.professorUsername ?: 'Unassigned'}"></td>
+                        <td>
+                            <button type="button" class="button" th:text="${project.scheduledSlot == null ? 'View availability' : 'Change availability'}"
+                                    onclick="this.nextElementSibling.showModal()">View availability</button>
+                            <dialog class="presentation-picker"
+                                    th:attr="aria-label=${project.title + ' presentation availability'}"
+                                    th:with="allowedSlots=${common[project.id]}, scheduling=true">
+                                <h2 th:text="${project.title}"></h2>
+                                <p th:text="${allowedSlots.isEmpty()} ? 'No common times are available.' : 'Choose one green time shared by the professor and project team.'"></p>
+                                <form method="post" th:action="@{/coordinator/presentations/{id}(id=${project.id})}">
+                                    <table th:replace="~{fragments/availability-grid :: grid}"></table>
+                                    <div class="form-actions">
+                                        <button type="button" class="button secondary" onclick="this.closest('dialog').close()">Cancel</button>
+                                        <button type="submit" class="button" th:disabled="${allowedSlots.isEmpty()}" th:text="${project.scheduledSlot == null ? 'Schedule' : 'Reschedule'}">Schedule</button>
+                                    </div>
+                                </form>
+                            </dialog>
+                        </td>
+                        <td th:text="${project.scheduledSlot == null ? 'Pending' : 'Done · ' + #strings.capitalize(#strings.toLowerCase(#strings.substringBefore(project.scheduledSlot, '_'))) + ' ' + #strings.substringAfter(project.scheduledSlot, '_') + ':00'}"></td>
+                    </tr></tbody>
+                </table>
+                <p th:if="${projects.isEmpty()}">No active projects.</p>
+            </section>
+        </main>
+    </div>
+</div></body></html>

@@ -68,6 +68,10 @@
             <svg class="icon" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
             Dashboard
         </a>
+        <a th:href="@{/coordinator/presentations}" th:classappend="${active == 'presentations'} ? 'active'">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="13" rx="1"/><path d="M12 16v5m-5 1 5-4 5 4"/></svg>
+            Presentations
+        </a>
         <a th:href="@{/coordinator/students}" th:classappend="${active == 'students'} ? 'active'"
            th:aria-current="${active == 'students'} ? 'page' : null">
             <svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></svg>

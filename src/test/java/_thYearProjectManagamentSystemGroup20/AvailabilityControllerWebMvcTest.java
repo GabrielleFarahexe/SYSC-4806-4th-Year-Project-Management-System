@@ -11,7 +11,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.DayOfWeek;
+import _thYearProjectManagamentSystemGroup20.Availability.Weekday;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
@@ -45,13 +45,13 @@ class AvailabilityControllerWebMvcTest {
 
     @Test
     void showAvailabilityLoadsSlotsForLoggedInUser() throws Exception {
-        when(availabilityService.getAvailability("student")).thenReturn(List.of("MONDAY_9"));
+        when(availabilityService.teamSlots("student")).thenReturn(List.of("MONDAY_9"));
 
         mockMvc.perform(get("/availability"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("availability"))
-                .andExpect(model().attribute("days", List.of(DayOfWeek.MONDAY, DayOfWeek.TUESDAY,
-                        DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY)))
+                .andExpect(model().attribute("days", List.of(Weekday.MONDAY, Weekday.TUESDAY,
+                        Weekday.WEDNESDAY, Weekday.THURSDAY, Weekday.FRIDAY)))
                 .andExpect(model().attribute("hours", List.of(9, 10, 11, 12, 13, 14, 15)))
                 .andExpect(model().attribute("selectedSlots", List.of("MONDAY_9")));
     }
@@ -81,7 +81,7 @@ class AvailabilityControllerWebMvcTest {
                 .andExpect(redirectedUrl("/availability"))
                 .andExpect(flash().attribute("success", "Availability saved successfully!"));
 
-        verify(availabilityService).saveAvailability("student", List.of("MONDAY_9", "FRIDAY_15"));
+        verify(availabilityService).saveTeamSlots("student", List.of("MONDAY_9", "FRIDAY_15"));
     }
 
     @Test
@@ -89,13 +89,13 @@ class AvailabilityControllerWebMvcTest {
         mockMvc.perform(post("/availability").with(csrf()))
                 .andExpect(status().is3xxRedirection());
 
-        verify(availabilityService).saveAvailability("student", List.of());
+        verify(availabilityService).saveTeamSlots("student", List.of());
     }
 
     @Test
     void invalidSlotReturnsBadRequest() throws Exception {
         doThrow(new IllegalArgumentException("bad slot"))
-                .when(availabilityService).saveAvailability(eq("student"), anyList());
+                .when(availabilityService).saveTeamSlots(eq("student"), anyList());
 
         mockMvc.perform(post("/availability").with(csrf())
                         .param("slots", "SUNDAY_3"))
@@ -107,7 +107,7 @@ class AvailabilityControllerWebMvcTest {
         mockMvc.perform(post("/availability").param("slots", "MONDAY_9"))
                 .andExpect(status().isForbidden());
 
-        verify(availabilityService, never()).saveAvailability(any(), anyList());
+        verify(availabilityService, never()).saveTeamSlots(any(), anyList());
     }
 
     @Test

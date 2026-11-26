@@ -1,0 +1,24 @@
+<table class="availability-grid" th:fragment="grid">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th th:each="day : ${days}"
+                            th:text="${#strings.capitalize(#strings.toLowerCase(day.name()))}">Monday</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="hour : ${hours}">
+                        <td th:text="${hour + ':00 - ' + (hour + 1) + ':00'}">9:00 - 10:00</td>
+                        <td th:each="day : ${days}">
+                            <label class="slot">
+                                <input th:type="${scheduling == true ? 'radio' : 'checkbox'}" th:name="${scheduling == true ? 'slot' : 'slots'}" th:required="${scheduling == true}"
+                                       th:value="${day.name() + '_' + hour}"
+                                       th:disabled="${(reserved != null and reserved.contains(day.name() + '_' + hour)) or (allowedSlots != null and !allowedSlots.contains(day.name() + '_' + hour))}"
+                                       th:checked="${selectedSlots != null and selectedSlots.contains(day.name() + '_' + hour)}"
+                                       th:attr="aria-label=${day.name() + ' ' + hour + ':00'}">
+                                <span>✓</span>
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>

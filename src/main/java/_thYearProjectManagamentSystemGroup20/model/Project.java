@@ -23,6 +23,8 @@ import jakarta.validation.constraints.Size;
 
 /** A 4th year project topic offered by a professor. */
 @Entity
+@jakarta.persistence.Table(uniqueConstraints = @jakarta.persistence.UniqueConstraint(
+        columnNames = {"professor_username", "scheduled_slot"}))
 public class Project {
 
     @Id
@@ -52,6 +54,53 @@ public class Project {
     private ProjectStatus status = ProjectStatus.ACTIVE;
 
     private LocalDateTime createdAt;
+
+    @Column(name = "professor_username")
+    private String professorUsername;
+
+    @Column(name = "scheduled_slot")
+    private String scheduledSlot;
+
+    public String getScheduledSlot() {
+        return scheduledSlot;
+    }
+
+    public void schedulePresentation(String slot) {
+        scheduledSlot = slot;
+    }
+
+    @ElementCollection
+    @Column(name = "student_username", unique = true)
+    private Set<String> memberUsernames = new java.util.HashSet<>();
+
+    @ElementCollection
+    private Set<String> presentationSlots = new java.util.HashSet<>();
+
+    @ElementCollection
+    private Set<String> offeredSlots = new java.util.HashSet<>();
+
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    public Set<String> getOfferedSlots() {
+        return offeredSlots;
+    }
+
+    public void assignProfessor(String username) {
+        professorUsername = username;
+    }
+
+    public void assignTeam(String professor, Set<String> members) {
+        assignProfessor(professor);
+        memberUsernames.addAll(members);
+    }
+
+    public String getProfessorUsername() {
+        return professorUsername;
+    }
+
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    public Set<String> getPresentationSlots() {
+        return presentationSlots;
+    }
 
     public Project() {
     }

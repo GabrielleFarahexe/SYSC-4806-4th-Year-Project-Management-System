@@ -15,6 +15,8 @@ import _thYearProjectManagamentSystemGroup20.model.Project;
 import _thYearProjectManagamentSystemGroup20.repository.ProjectRepository;
 import jakarta.validation.Valid;
 
+import java.security.Principal;
+
 /**
  * Professor portal: dashboard and "Add Project" form.
  * (Manage Projects, Applications and Availability pages can be added
@@ -65,6 +67,7 @@ public class ProfessorController {
     @PostMapping("/projects")
     public String createProject(@Valid @ModelAttribute("project") Project project,
             BindingResult bindingResult,
+            Principal professor,
             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "professor/project-form"; // re-show the form with error messages
@@ -74,6 +77,7 @@ public class ProfessorController {
         project.setStatus(ProjectStatus.ACTIVE);
         project.setCreatedAt(null);
 
+        project.assignProfessor(professor.getName());
         Project saved = projectRepository.save(project);
         redirectAttributes.addFlashAttribute("successMessage",
                 "Project \"" + saved.getTitle() + "\" was created.");
