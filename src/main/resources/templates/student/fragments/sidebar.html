@@ -1,0 +1,11 @@
+<aside class="sidebar" th:fragment="sidebar(page)" xmlns:th="http://www.thymeleaf.org">
+    <div class="sidebar-brand">4th Year Project</div>
+    <nav aria-label="Student navigation">
+        <a th:href="@{/student/dashboard}" th:aria-current="${page == 'dashboard' ? 'page' : null}">Dashboard</a>
+        <a th:href="@{/student/projects}" th:aria-current="${page == 'projects' ? 'page' : null}">Browse Projects</a>
+        <a th:href="@{/student/availability}" th:aria-current="${page == 'availability' ? 'page' : null}">Availability</a>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Log out</button>
+        </form>
+    </nav>
+</aside>

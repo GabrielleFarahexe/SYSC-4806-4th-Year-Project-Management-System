@@ -142,10 +142,68 @@ h3 { font-size: 1rem; }
 }
 
 .user {
+    font-size: 0.9rem;
+}
+
+.user-identity,
+.role-switcher summary {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.9rem;
+}
+
+.role-switcher {
+    position: relative;
+}
+
+.role-switcher summary {
+    cursor: pointer;
+    list-style: none;
+}
+
+.role-switcher summary::-webkit-details-marker {
+    display: none;
+}
+
+.role-switcher summary::after {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+}
+
+.role-switcher nav {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    z-index: 2;
+    min-width: 100%;
+    padding: 0.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+}
+
+.role-switcher a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    color: var(--text);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.role-switcher a:hover,
+.role-switcher a:focus-visible,
+.role-switcher a[aria-current="true"] {
+    background: var(--primary-soft);
+}
+
+.role-switcher a[aria-current="true"] {
+    font-weight: 600;
 }
 
 .avatar {
@@ -733,5 +791,12 @@ h3 { font-size: 1rem; }
 
     .project-item {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 520px) {
+    .topbar {
+        gap: 0.5rem;
+        padding-inline: 0.75rem;
     }
 }

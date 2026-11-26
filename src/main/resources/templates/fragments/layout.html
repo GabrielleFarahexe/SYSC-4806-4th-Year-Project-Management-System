@@ -40,10 +40,11 @@
             <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
             Add Project
         </a>
-        <a th:href="@{/availability}" th:classappend="${active == 'availability'} ? 'active'">
+        <a th:href="@{/professor/availability}" th:classappend="${active == 'availability'} ? 'active'">
             <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
             My Availability
         </a>
+        <a th:replace="~{fragments/layout :: aboutLink(${role}, ${active})}"></a>
     </nav>
 
     <nav th:if="${role == 'student'}">
@@ -55,10 +56,11 @@
             <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
             Browse Projects
         </a>
-        <a th:href="@{/availability}" th:classappend="${active == 'availability'} ? 'active'">
+        <a th:href="@{/student/availability}" th:classappend="${active == 'availability'} ? 'active'">
             <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
             Availability
         </a>
+        <a th:replace="~{fragments/layout :: aboutLink(${role}, ${active})}"></a>
     </nav>
 
     <nav th:if="${role == 'coordinator'}">
@@ -66,22 +68,49 @@
             <svg class="icon" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
             Dashboard
         </a>
-        <a th:href="@{/coordinator/dashboard#unassigned-students}">
+        <a th:href="@{/coordinator/students}" th:classappend="${active == 'students'} ? 'active'"
+           th:aria-current="${active == 'students'} ? 'page' : null">
             <svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></svg>
             Students
         </a>
+        <a th:replace="~{fragments/layout :: aboutLink(${role}, ${active})}"></a>
     </nav>
 </aside>
 
+<a th:fragment="aboutLink(role, active)" th:href="@{/{role}/about(role=${role})}"
+   th:classappend="${active == 'about'} ? 'active'"
+   th:aria-current="${active == 'about'} ? 'page' : null">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+    About
+</a>
+
 <header class="topbar" th:fragment="topbar(roleLabel)">
-    <div class="user">
-        <span class="avatar" th:text="${#strings.substring(#authentication.name, 0, 1)}">U</span>
-        <span><strong sec:authentication="name">user</strong> <span class="muted" th:text="'(' + ${roleLabel} + ')'">(Role)</span></span>
+    <div class="user"
+         th:with="canSwitchDashboards=${#authorization.expression('hasRole(''ADMIN'') or (authentication.name == ''admin'' and hasRole(''STUDENT'') and hasRole(''PROFESSOR'') and hasRole(''COORDINATOR''))')}">
+        <details class="role-switcher" th:if="${canSwitchDashboards}">
+            <summary aria-label="Switch dashboard" th:insert="~{fragments/layout :: userIdentity(${roleLabel})}"></summary>
+            <nav aria-label="Dashboard roles">
+                <a th:href="@{/coordinator/dashboard}"
+                   th:aria-current="${roleLabel == 'Coordinator'} ? 'true' : null">Coordinator Dashboard</a>
+                <a th:href="@{/professor}"
+                   th:aria-current="${roleLabel == 'Professor'} ? 'true' : null">Professor</a>
+                <a th:href="@{/student/dashboard}"
+                   th:aria-current="${roleLabel == 'Student'} ? 'true' : null">Student</a>
+            </nav>
+        </details>
+        <th:block th:unless="${canSwitchDashboards}">
+            <span th:replace="~{fragments/layout :: userIdentity(${roleLabel})}"></span>
+        </th:block>
     </div>
     <form th:action="@{/logout}" method="post">
         <button type="submit" class="button link">Log out</button>
     </form>
 </header>
+
+<span class="user-identity" th:fragment="userIdentity(roleLabel)">
+    <span class="avatar" th:text="${#strings.substring(#authentication.name, 0, 1)}">U</span>
+    <span><strong sec:authentication="name">user</strong> <span class="muted" th:text="'(' + ${roleLabel} + ')'">(Role)</span></span>
+</span>
 
 </body>
 </html>

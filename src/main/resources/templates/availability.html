@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('My Availability')}"></head>
 <body>
-<!-- Shared by students and professors: pick the sidebar for whoever is logged in. -->
-<div class="app" th:with="role=${#authorization.expression('hasRole(''PROFESSOR'')')} ? 'professor' : 'student'">
+<div class="app">
     <aside th:replace="~{fragments/layout :: sidebar(${role}, 'availability')}"></aside>
 
     <div class="app-main">
@@ -16,7 +15,7 @@
 
             <p class="alert alert-success" th:if="${success}" th:text="${success}"></p>
 
-            <form class="card" th:action="@{/availability}" method="post">
+            <form class="card" th:action="@{${availabilityPath}}" method="post">
                 <p class="muted">Select all the times you are available (you can select multiple slots).</p>
 
                 <table class="availability-grid">

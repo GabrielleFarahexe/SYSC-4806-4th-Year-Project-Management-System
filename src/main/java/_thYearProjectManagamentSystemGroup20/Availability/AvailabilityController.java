@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @Controller
-@RequestMapping("/availability")
+@RequestMapping({"/availability", "/{role:student|professor}/availability"})
 public class AvailabilityController {
 
     private final AvailabilityService service;
@@ -24,10 +25,19 @@ public class AvailabilityController {
 
     @GetMapping
     public String showAvailability(
+            @PathVariable(name = "role", required = false) String role,
             Model model,
             Authentication authentication) {
 
         String username = authentication.getName();
+
+        String sidebarRole = role;
+        if (sidebarRole == null) {
+            sidebarRole = AuthorityUtils.authorityListToSet(authentication.getAuthorities())
+                    .contains("ROLE_PROFESSOR") ? "professor" : "student";
+        }
+        model.addAttribute("role", sidebarRole);
+        model.addAttribute("availabilityPath", availabilityPath(role));
 
         model.addAttribute("days", List.of(
                 DayOfWeek.MONDAY,
@@ -48,6 +58,7 @@ public class AvailabilityController {
 
     @PostMapping
     public String saveAvailability(
+            @PathVariable(name = "role", required = false) String role,
             @RequestParam(name = "slots", required = false)
             List<String> slots,
             Authentication authentication,
@@ -66,6 +77,10 @@ public class AvailabilityController {
                 "Availability saved successfully!"
         );
 
-        return "redirect:/availability";
+        return "redirect:" + availabilityPath(role);
+    }
+
+    private String availabilityPath(String role) {
+        return role == null ? "/availability" : "/" + role + "/availability";
     }
 }

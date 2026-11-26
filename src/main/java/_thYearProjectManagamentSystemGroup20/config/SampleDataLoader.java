@@ -3,11 +3,14 @@ package _thYearProjectManagamentSystemGroup20.config;
 import _thYearProjectManagamentSystemGroup20.model.Program;
 import _thYearProjectManagamentSystemGroup20.model.Project;
 import _thYearProjectManagamentSystemGroup20.model.ProjectStatus;
+import _thYearProjectManagamentSystemGroup20.model.Student;
 import _thYearProjectManagamentSystemGroup20.repository.ProjectRepository;
+import _thYearProjectManagamentSystemGroup20.repository.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
 import java.util.Set;
 
 @Configuration
@@ -41,6 +44,20 @@ public class SampleDataLoader {
                                         "Old topic that students should not see.", Set.of(), 3);
                         archived.setStatus(ProjectStatus.ARCHIVED);
                         repository.save(archived);
+                };
+        }
+
+        @Bean
+        CommandLineRunner loadSampleStudents(StudentRepository repository) {
+                return args -> {
+                        if (repository.count() > 0) {
+                                return;
+                        }
+
+                        repository.saveAll(List.of(
+                                        new Student("101200001", "Maya Chen", "maya.chen@example.com", false),
+                                        new Student("101200002", "Noah Patel", "noah.patel@example.com", false),
+                                        new Student("101200003", "Sofia Martin", "sofia.martin@example.com", false)));
                 };
         }
 }

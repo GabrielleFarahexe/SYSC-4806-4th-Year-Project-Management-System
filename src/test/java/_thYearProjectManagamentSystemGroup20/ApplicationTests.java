@@ -32,8 +32,8 @@ class ApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(view().name("index"))
 				.andExpect(content().string(containsString("Fourth-Year Project Management System")))
-				.andExpect(content().string(containsString("Professor dashboard")))
-				.andExpect(content().string(containsString("Coordinator dashboard")));
+				.andExpect(content().string(containsString("Professors")))
+				.andExpect(content().string(containsString("Project Coordinator")));
 	}
 
 	@Test
@@ -94,15 +94,15 @@ class ApplicationTests {
     }
 
     @Test
-    void dashboardRedirectsAdminToAboutPage() throws Exception {
+    void dashboardRedirectsAdminToCoordinatorDashboard() throws Exception {
         MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
                 .build()
                 .perform(get("/dashboard")
                         .with(user("admin")
-                                .roles("STUDENT", "PROFESSOR", "COORDINATOR")))
+                                .roles("ADMIN", "STUDENT", "PROFESSOR", "COORDINATOR")))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/about"));
+                .andExpect(redirectedUrl("/coordinator/dashboard"));
     }
 
 }
