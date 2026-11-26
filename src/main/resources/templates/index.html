@@ -1,64 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fourth-Year Project Management System</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 24px;
-            line-height: 1.5;
-            color: #222;
-        }
-        header {
-            border-bottom: 3px solid #c8102e;
-            margin-bottom: 24px;
-        }
-        h1 { margin-bottom: 4px; }
-        .subtitle { color: #555; margin-top: 0; }
-        .roles {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
-        }
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 16px;
-        }
-        .card h3 { margin-top: 0; }
-        .button {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 8px 14px;
-            background: #c8102e;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-        }
-        .button:hover { background: #a00d25; }
-        footer {
-            margin-top: 40px;
-            padding-top: 12px;
-            border-top: 1px solid #ddd;
-            color: #777;
-            font-size: 0.9em;
-        }
-    </style>
-</head>
-
+<head th:replace="~{fragments/layout :: head('About')}"></head>
 <body>
+<div class="public-page">
 
-    <header>
-        <h1>Fourth-Year Project Management System</h1>
-        <p class="subtitle">SYSC 4806 &middot; Carleton University &middot; Group 20</p>
+    <header class="public-header">
+        <div>
+            <h1>Fourth-Year Project Management System</h1>
+            <p class="muted">SYSC 4806 &middot; Carleton University &middot; Group 20</p>
+        </div>
+        <a class="button" th:href="@{/login}">Sign in</a>
     </header>
 
-    <section>
+    <section class="card">
         <h2>What is this?</h2>
         <p>
             Every fourth-year engineering student at Carleton completes a capstone project.
@@ -69,36 +23,32 @@
         </p>
     </section>
 
-    <section>
-        <h2>Who uses it?</h2>
-        <div class="roles">
-
-            <div class="card">
-                <h3>Students</h3>
-                <p>Browse available project topics, filter by program, and submit your
-                    availability for oral presentations.</p>
-                <a class="button" th:href="@{/student/projects}">Browse projects</a>
-                <a class="button" th:href="@{/availability}">Enter availability</a>
-            </div>
-
-            <div class="card">
-                <h3>Professors</h3>
-                <p>Create project topics with descriptions, program restrictions and student
-                    capacity, then edit or archive them as needed.</p>
-                <a class="button" th:href="@{/professor}">Professor dashboard</a>
-            </div>
-
-            <div class="card">
-                <h3>Project Coordinator</h3>
-                <p>See which students do not have a project yet, and coordinate presentations
-                    and submission deadlines.</p>
-                <a class="button" th:href="@{/coordinator/dashboard}">Coordinator dashboard</a>
-            </div>
-
+    <h2>Who uses it?</h2>
+    <div class="roles">
+        <div class="card">
+            <h3>Students</h3>
+            <p>Browse available project topics, filter by program, and submit your
+                availability for oral presentations.</p>
+            <a class="button" th:href="@{/student/projects}">Browse projects</a>
+            <a class="button secondary" th:href="@{/availability}">Enter availability</a>
         </div>
-    </section>
 
-    <section>
+        <div class="card">
+            <h3>Professors</h3>
+            <p>Create project topics with descriptions, program restrictions and student
+                capacity, then edit or archive them as needed.</p>
+            <a class="button" th:href="@{/professor}">Professor dashboard</a>
+        </div>
+
+        <div class="card">
+            <h3>Project Coordinator</h3>
+            <p>See which students do not have a project yet, and coordinate presentations
+                and submission deadlines.</p>
+            <a class="button" th:href="@{/coordinator/dashboard}">Coordinator dashboard</a>
+        </div>
+    </div>
+
+    <section class="card" style="margin-top: 1.5rem">
         <h2>How it works</h2>
         <ol>
             <li>Professors post project topics.</li>
@@ -109,10 +59,10 @@
         </ol>
     </section>
 
-    <footer>
+    <footer class="footer">
         SYSC 4806 Group 20 &middot; Gabrielle Farah, Jumana Amr, Matthew Gibeault, Jordan Grewal, Aryan Singh
     </footer>
 
+</div>
 </body>
-
 </html>
