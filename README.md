@@ -61,6 +61,23 @@ Opening the site goes to the login page. Each role only sees its own page/dashbo
 
 ![UML Class Diagram](docs/UML.png)
 
+## Database Schema
+
+The full schema is in [`docs/schema.sql`](docs/schema.sql). Hibernate generates it from the JPA entities.
+
+| Table | Entity | Contents |
+|---|---|---|
+| `project` | `Project` | Title, description, required students (1–10), status (`ACTIVE` / `ARCHIVED` / `DELETED`), created date |
+| `project_program_restrictions` | `Project.programRestrictions` | Programs a project is limited to (none = open to all programs) |
+| `students` | `Student` | Student number, name, email, whether they are assigned to a project |
+| `availability` | `Availability` | Presentation availability: username, day of week, start hour |
+
+To regenerate the file after changing an entity, run the app with the `schema` profile, then stop it once it has started:
+
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=schema
+```
+
 ## Project Overview
 
 The Fourth-Year Project Management System aims to simplify and organize the administration of fourth-year engineering projects.
@@ -163,6 +180,9 @@ Each sprint will focus on implementing and testing a portion of the system's fun
 SYSC-4806-4th-Year-Project-Management-System/
 │
 ├── .mvn/
+├── docs/
+│   ├── UML.png
+│   └── schema.sql
 ├── src/
 │   ├── main/
 │   │   ├── java/
