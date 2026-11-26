@@ -40,8 +40,8 @@ Opening the site goes to the login page. Each role only sees its own page/dashbo
 |---|---|
 | Students apply to a project, with capacity limits, and see it in "My project" | Gabrielle |
 | Professors manage projects (edit, archive, delete) and accept or reject applications | TBD |
-| Coordinator sees students without a project and sends reminder emails | Jordan Grewal |
-| Presentation room allocation and scheduling using submitted availability | Jordan Grewal |
+| Coordinator sees students without a project and sends reminder emails | TBD |
+| Presentation room allocation and scheduling using submitted availability | TBD |
 | Final report submission with a coordinator-set deadline | TBD |
 | Store users in the database instead of hard-coded logins | TBD |
 | Restyle all pages to match the UI mockup | Everyone (own role's pages) |
