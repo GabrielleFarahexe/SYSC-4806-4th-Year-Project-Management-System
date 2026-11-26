@@ -39,12 +39,13 @@ Opening the site goes to the login page. Each role only sees its own page/dashbo
 | Feature | Owner |
 |---|---|
 | Students apply to a project, with capacity limits, and see it in "My project" | Gabrielle |
-| Professors manage projects (edit, archive, delete) and accept or reject applications | TBD |
-| Coordinator sees students without a project and sends reminder emails | TBD |
-| Presentation room allocation and scheduling using submitted availability | TBD |
-| Final report submission with a coordinator-set deadline | TBD |
-| Store users in the database instead of hard-coded logins | TBD |
-| Restyle all pages to match the UI mockup | Everyone (own role's pages) |
+| Store users in the database and link student logins to the Student entity | Gabrielle |
+| Presentation room allocation and scheduling using submitted availability | Jordan |
+| Professors manage projects (edit, archive, delete) and accept or reject applications | Aryan |
+| Coordinator sees students without a project and sends reminder emails | Jumana |
+| Move to PostgreSQL so data persists on Azure | Matthew |
+| Final report submission with a coordinator-set deadline | Jumana & Matthew |
+| Remove or finish links to unbuilt pages (no dangling links for the final demo) | Everyone |
 
 ## Team Members
 
