@@ -165,7 +165,7 @@ class SecurityAccessTest {
                         .with(user("admin")
                                 .roles("ADMIN", "STUDENT", "PROFESSOR", "COORDINATOR")))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Dashboard roles")));
-    }
+                .andExpect(content().string(containsString("Welcome, admin")));
+           }
 
 }

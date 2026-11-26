@@ -12,14 +12,16 @@ public class Student {
     private String studentNumber;
     private String name;
     private String email;
+    private String program;
     private boolean assigned;
 
     public Student() {}
 
-    public Student(String studentNumber, String name, String email, boolean assigned) {
+    public Student(String studentNumber, String name, String email, String program, boolean assigned) {
         this.studentNumber = studentNumber;
         this.name = name;
         this.email = email;
+        this.program = program;
         this.assigned = assigned;
     }
 
@@ -53,6 +55,14 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getProgram() {
+        return program;
+    }
+
+    public void setProgram(String program) {
+        this.program = program;
     }
 
     public boolean isAssigned() {

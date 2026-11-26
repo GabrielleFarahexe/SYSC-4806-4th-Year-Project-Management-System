@@ -55,9 +55,9 @@ public class SampleDataLoader {
                         }
 
                         repository.saveAll(List.of(
-                                        new Student("101200001", "Maya Chen", "maya.chen@example.com", false),
-                                        new Student("101200002", "Noah Patel", "noah.patel@example.com", false),
-                                        new Student("101200003", "Sofia Martin", "sofia.martin@example.com", false)));
+                                        new Student("101200001", "Maya Chen", "maya.chen@example.com", "Software Engineering", false),
+                                        new Student("101200002", "Noah Patel", "noah.patel@example.com", "Computer Systems", false),
+                                        new Student("101200003", "Sofia Martin", "sofia.martin@example.com", "Electrical Engineering",false)));
                 };
         }
 }

@@ -43,7 +43,7 @@ class CoordinatorViewControllerWebMvcTest {
     @Test
     void dashboardShowsStudentAndAvailableProjectCounts() throws Exception {
         List<Student> unassigned = List.of(
-                new Student("101200002", "John Doe", "john@cmail.carleton.ca", false));
+                new Student("101200002", "John Doe", "john@cmail.carleton.ca", "Software Engieering", false));
         when(studentRepository.count()).thenReturn(3L);
         when(projectRepository.countByStatus(ProjectStatus.ACTIVE)).thenReturn(5L);
         when(studentRepository.countByAssigned(false)).thenReturn(1L);
@@ -55,7 +55,7 @@ class CoordinatorViewControllerWebMvcTest {
                 .andExpect(model().attribute("totalStudents", 3L))
                 .andExpect(model().attribute("availableProjectCount", 5L))
                 .andExpect(content().string(matchesPattern(
-                        "(?s).*<div class=\"stat-value\">5</div>\\s*<div class=\"stat-label\">Available Projects</div>.*")))
+                        "(?s).*<div class=\"metric-value\">5</div>\\s*<div class=\"metric-label\">Available Projects</div>.*")))
                 .andExpect(content().string(containsString("href=\"/coordinator/students\"")))
                 .andExpect(model().attribute("unassignedCount", 1L))
                 .andExpect(model().attribute("unassignedStudents", unassigned));
@@ -64,8 +64,8 @@ class CoordinatorViewControllerWebMvcTest {
     @Test
     void studentsPageShowsEachStudentWithTheirProjectStatus() throws Exception {
         when(studentRepository.findAll()).thenReturn(List.of(
-                new Student("101200001", "Jane Doe", "jane@cmail.carleton.ca", true),
-                new Student("101200002", "John Doe", "john@cmail.carleton.ca", false)));
+                new Student("101200001", "Jane Doe", "jane@cmail.carleton.ca", "Software Engineering", true),
+                new Student("101200002", "John Doe", "john@cmail.carleton.ca", "Software Engineering", false)));
 
         mockMvc.perform(get("/coordinator/students"))
                 .andExpect(status().isOk())
