@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coordinator Dashboard</title>
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: #f4f6f9;
             color: #1f2937;
         }
+
         .layout {
             display: flex;
             min-height: 100vh;
         }
+
         .sidebar {
             width: 230px;
             background: #0f2942;
@@ -23,6 +29,7 @@
             padding: 20px 0;
             flex-shrink: 0;
         }
+
         .sidebar-brand {
             font-weight: 700;
             font-size: 1.05rem;
@@ -30,6 +37,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.12);
             margin-bottom: 12px;
         }
+
         .sidebar a {
             display: block;
             padding: 11px 20px;
@@ -37,20 +45,25 @@
             text-decoration: none;
             font-size: 0.95rem;
         }
-        .sidebar a:hover, .sidebar a.active {
+
+        .sidebar a:hover,
+        .sidebar a.active {
             background: rgba(255, 255, 255, 0.12);
             color: #ffffff;
         }
+
         .main-content {
             flex: 1;
             padding: 28px 36px;
         }
+
         .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
+
         .role-badge {
             font-size: 0.9rem;
             color: #4b5563;
@@ -59,12 +72,14 @@
             border-radius: 999px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
         }
+
         .metrics {
             display: grid;
             grid-template-columns: repeat(4, minmax(150px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
+
         .metric-card {
             background: #ffffff;
             border-radius: 10px;
@@ -72,22 +87,27 @@
             text-align: center;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
+
         .metric-card.alert {
             background: #fef2f2;
         }
+
         .metric-value {
             font-size: 2rem;
             font-weight: 700;
             color: #1d4ed8;
             margin-bottom: 6px;
         }
+
         .metric-card.alert .metric-value {
             color: #dc2626;
         }
+
         .metric-label {
             font-size: 0.9rem;
             color: #4b5563;
         }
+
         .card {
             background: #ffffff;
             border-radius: 10px;
@@ -95,14 +115,18 @@
             margin-bottom: 22px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
-        .card h2, .card h3 {
+
+        .card h2,
+        .card h3 {
             margin-top: 0;
         }
+
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(2, minmax(220px, 1fr));
             gap: 14px;
         }
+
         .action-btn {
             display: flex;
             align-items: center;
@@ -115,24 +139,30 @@
             font-weight: 600;
             text-decoration: none;
         }
+
         .action-btn:hover {
             background: #eff6ff;
             border-color: #93c5fd;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 12px;
         }
-        th, td {
+
+        th,
+        td {
             padding: 12px 14px;
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
+
         th {
             background: #f8fafc;
             font-weight: 600;
         }
+
         .btn {
             padding: 6px 12px;
             background: #2563eb;
@@ -143,64 +173,92 @@
             text-decoration: none;
             font-size: 0.875rem;
         }
+
         .btn:hover {
             background: #1d4ed8;
         }
+
         @media (max-width: 900px) {
-            .metrics { grid-template-columns: repeat(2, 1fr); }
-            .quick-actions { grid-template-columns: 1fr; }
-            .layout { flex-direction: column; }
-            .sidebar { width: 100%; }
+            .metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
         }
     </style>
 </head>
+
 <body>
-<div class="layout">
-    <aside class="sidebar">
-        <div class="sidebar-brand">4th Year Project</div>
-        <a th:href="@{/coordinator/dashboard}" class="active">Dashboard</a>
-        <a th:href="@{/student/projects}">Projects</a>
-        <a href="#unassigned-students">Students</a>
-        <a th:href="@{/availability}">Presentations</a>
-    </aside>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-brand">4th Year Project</div>
+            <a th:href="@{/coordinator/dashboard}" class="active">Dashboard</a>
+            <a th:href="@{/student/projects}">Projects</a>
+            <a href="#unassigned-students">Students</a>
+            <a th:href="@{/availability}">Presentations</a>
+        </aside>
 
-    <main class="main-content">
-        <div class="topbar">
-            <h1>Coordinator Dashboard</h1>
-            <span class="role-badge">Coordinator</span>
-        </div>
+        <main class="main-content">
+            <div class="topbar">
+                <h1>Coordinator Dashboard</h1>
+                <span class="role-badge">Coordinator</span>
+            </div>
 
-        <!-- 4 Metric Counters -->
-        <section class="metrics">
-            <div class="metric-card">
-                <div class="metric-value" th:text="${totalStudents}">0</div>
-                <div class="metric-label">Total Students</div>
-            </div>
-            <div class="metric-card alert">
-                <div class="metric-value" th:text="${unassignedCount}">0</div>
-                <div class="metric-label">Students without Project</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value" th:text="${totalProjects}">0</div>
-                <div class="metric-label">Projects</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value" th:text="${presentationsScheduled}">0</div>
-                <div class="metric-label">Presentations Scheduled</div>
-            </div>
-        </section>
+            <!-- 4 Metric Counters -->
+            <section class="metrics">
+                <div class="metric-card">
+                    <div class="metric-value" th:text="${totalStudents}">0</div>
+                    <div class="metric-label">Total Students</div>
+                </div>
+                <div class="metric-card alert">
+                    <div class="metric-value" th:text="${unassignedCount}">0</div>
+                    <div class="metric-label">Students without Project</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" th:text="${totalProjects}">0</div>
+                    <div class="metric-label">Projects</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" th:text="${presentationsScheduled}">0</div>
+                    <div class="metric-label">Presentations Scheduled</div>
+                </div>
+            </section>
+            <section class="card">
+                <h2>Assign Student</h2>
+                <form th:action="@{/coordinator/assign}" method="post">
+                    <select name="studentNumber">
+                        <option th:each="s : ${unassignedStudents}" th:value="${s.studentNumber}" th:text="${s.name}">
+                            Student</option>
+                    </select>
+                    <select name="projectId">
+                        <option th:each="p : ${projects}" th:value="${p.id}" th:text="${p.title}">Project</option>
+                    </select>
+                    <button type="submit" class="btn">Assign</button>
+                </form>
+            </section>
 
-        <!-- Quick Actions -->
-        <section class="card">
-            <h2>Quick Actions</h2>
-            <div class="quick-actions">
-                <a href="#unassigned-students" class="action-btn">Find Students without Project</a>
-                <a th:href="@{/availability}" class="action-btn">Allocate Presentations</a>
-                <a th:href="@{/coordinator/deadlines}" class="action-btn">Set Report Deadline</a>
-                <a th:href="@{/coordinator/reminders}" class="action-btn">Send Reminder Emails</a>
-            </div>
-        </section>
-    </main>
-</div>
+            <!-- Quick Actions -->
+            <section class="card">
+                <h2>Quick Actions</h2>
+                <div class="quick-actions">
+                    <a href="#unassigned-students" class="action-btn">Find Students without Project</a>
+                    <a th:href="@{/availability}" class="action-btn">Allocate Presentations</a>
+                    <a th:href="@{/coordinator/deadlines}" class="action-btn">Set Report Deadline</a>
+                    <a th:href="@{/coordinator/reminders}" class="action-btn">Send Reminder Emails</a>
+                </div>
+            </section>
+        </main>
+    </div>
 </body>
+
 </html>

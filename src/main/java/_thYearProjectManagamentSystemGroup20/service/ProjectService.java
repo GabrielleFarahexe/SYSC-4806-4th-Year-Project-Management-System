@@ -4,7 +4,9 @@ import _thYearProjectManagamentSystemGroup20.model.Program;
 import _thYearProjectManagamentSystemGroup20.model.Project;
 import _thYearProjectManagamentSystemGroup20.model.ProjectStatus;
 import _thYearProjectManagamentSystemGroup20.repository.ProjectRepository;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +17,22 @@ import java.util.TreeSet;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final ApplicationEventPublisher events;
 
-    public ProjectService(ProjectRepository projectRepository) {
+    public ProjectService(ProjectRepository projectRepository,
+            ApplicationEventPublisher events) {
         this.projectRepository = projectRepository;
+        this.events = events;
+    }
+
+    // Publishes an event instead of updating the student directly,
+    // so this module never depends on the students module.
+    @Transactional
+    public void assignStudent(String studentNumber, Long projectId) {
+        if (!projectRepository.existsById(projectId)) {
+            throw new IllegalArgumentException("No project with id " + projectId);
+        }
+        events.publishEvent(new StudentAssignedToProject(studentNumber, projectId));
     }
 
     public List<Project> getActiveProjects() {
